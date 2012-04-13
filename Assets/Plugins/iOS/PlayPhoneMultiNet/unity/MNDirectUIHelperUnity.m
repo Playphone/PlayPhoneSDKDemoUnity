@@ -43,13 +43,6 @@ void _MNDirectUIHelper_SetDashboardStyle(int newStyle) {
 }
 
 EXTERN_C
-int _MNDirectUIHelper_GetDashboardStyle() {
-    MARK;
-
-    return [MNDirectUIHelper getDashboardStyle];
-}
-
-EXTERN_C
 void _MNDirectUIHelper_ShowDashboard() {
     MARK;
 

@@ -92,7 +92,6 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNMyHiScoresProvider:RegisterEventHandler");
 
       if (eventHandlerRegistered) {
-        MNTools.DLog("MNMyHiScoresProvider:EventHandler already registered");
         return;
       }
 
@@ -163,7 +162,6 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNMyHiScoresProvider:RegisterEventHandler");
 
       if (eventHandlerRegistered) {
-        MNTools.DLog("MNMyHiScoresProvider:EventHandler already registered");
         return;
       }
 

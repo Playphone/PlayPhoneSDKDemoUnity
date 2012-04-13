@@ -5,19 +5,7 @@ using PlayPhone.MultiNet.Providers;
 
 namespace PlayPhone.MultiNet.Core
 {
-  public abstract class MNSerializer
-  {/*
-    //Commented bacause virtual method with generics are restricted by Full-AOT used for compilation for iOS
-    public abstract string Serialize (object obj);
-    public abstract T Deserialize<T> (string str);
-
-    //Dictionary serializatoion
-    public abstract string SerializeDictionary<TKey,TValue> (IDictionary<TKey,TValue> obj);
-    public abstract IDictionary<TKey,TValue> DeserializeDictionary<TKey,TValue> (string str);
-    */
-  }
-
-  public class MNJsonSerializer : MNSerializer {
+  public class MNJsonSerializer {
     public MNJsonSerializer()
     {
     }

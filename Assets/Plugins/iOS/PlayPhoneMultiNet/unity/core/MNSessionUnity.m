@@ -20,6 +20,7 @@
 - (void)mnSessionErrorOccurred:(MNErrorInfo*)errorInfo;
 - (void)mnSessionExecAppCommandReceived:(NSString*)cmdName withParam:(NSString*)cmdParam;
 - (void)mnSessionExecUICommandReceived:(NSString*)cmdName withParam:(NSString*)cmdParam;
+- (void)mnSessionJoinRoomInvitationReceived:(MNJoinRoomInvitationParams*)params;
 @end
 
 static MNSessionUnity *MNSessionUnityInstance = nil;
@@ -57,6 +58,9 @@ static MNSessionUnity *MNSessionUnityInstance = nil;
 }
 - (void)mnSessionExecUICommandReceived:(NSString*)cmdName withParam:(NSString*)cmdParam {
     [MNUnity callUnityFunction:@"MNUM_mnSessionExecUICommandReceived" withParams:(cmdName == nil ? [NSNull null] : cmdName), (cmdParam == nil ? [NSNull null] : cmdParam), nil];
+}
+- (void)mnSessionJoinRoomInvitationReceived:(MNJoinRoomInvitationParams*)params {
+    [MNUnity callUnityFunction:@"MNUM_mnSessionJoinRoomInvitationReceived" withParams:(params == nil ? [NSNull null] : params), nil];
 }
 @end
 

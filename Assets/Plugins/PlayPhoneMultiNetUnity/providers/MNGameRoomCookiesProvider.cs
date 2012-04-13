@@ -157,7 +157,6 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNGameRoomCookiesProvider:RegisterEventHandler");
 
       if (eventHandlerRegistered) {
-        MNTools.DLog("MNGameRoomCookiesProvider:EventHandler already registered");
         return;
       }
 
@@ -237,7 +236,6 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNGameRoomCookiesProvider:RegisterEventHandler");
 
       if (eventHandlerRegistered) {
-        MNTools.DLog("MNGameRoomCookiesProvider:EventHandler already registered");
         return;
       }
 

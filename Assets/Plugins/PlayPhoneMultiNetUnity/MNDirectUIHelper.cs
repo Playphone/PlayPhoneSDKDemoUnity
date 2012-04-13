@@ -13,6 +13,7 @@ namespace PlayPhone.MultiNet
   {
     public const int DASHBOARD_STYLE_FULLSCREEN = 1;
     public const int DASHBOARD_STYLE_POPUP = 2;
+    public const int DASHBOARD_STYLE_POPUP_MINI = 3;
 
     #region MNDirectUIHelperEventHandler
 
@@ -91,17 +92,6 @@ namespace PlayPhone.MultiNet
       }
     }
 
-    public static int GetDashboardStyle() {
-      MNTools.DLog("MNDirectUIHelper:GetDashboardStyle");
-
-      if (Application.platform == RuntimePlatform.IPhonePlayer) {
-        return _MNDirectUIHelper_GetDashboardStyle();
-      }
-      else {
-        throw new MNNotOnDeviceExcepton();
-      }
-    }
-
     public static void ShowDashboard() {
       MNTools.DLog("MNDirectUIHelper:ShowDashboard");
 
@@ -159,7 +149,6 @@ namespace PlayPhone.MultiNet
       MNTools.DLog("MNDirectUIHelper:RegisterEventHandler");
 
       if (eventHandlerRegistered) {
-        MNTools.DLog("MNDirectUIHelper:EventHandler already registered");
         return;
       }
 
@@ -195,17 +184,6 @@ namespace PlayPhone.MultiNet
 
       if (Application.platform == RuntimePlatform.Android) {
         MNDirectUIHelperUnityClass.CallStatic("setDashboardStyle",newStyle);
-      }
-      else {
-        throw new MNNotOnDeviceExcepton();
-      }
-    }
-
-    public static int GetDashboardStyle() {
-      MNTools.DLog("MNDirectUIHelper:GetDashboardStyle");
-
-      if (Application.platform == RuntimePlatform.Android) {
-        return MNDirectUIHelperUnityClass.CallStatic<int>("getDashboardStyle");
       }
       else {
         throw new MNNotOnDeviceExcepton();
@@ -283,7 +261,6 @@ namespace PlayPhone.MultiNet
       MNTools.DLog("MNDirectUIHelper:RegisterEventHandler");
 
       if (eventHandlerRegistered) {
-        MNTools.DLog("MNDirectUIHelper:EventHandler already registered");
         return;
       }
 
@@ -337,9 +314,6 @@ namespace PlayPhone.MultiNet
 
     [DllImport ("__Internal")]
     private static extern void _MNDirectUIHelper_SetDashboardStyle (int newStyle);
-
-    [DllImport ("__Internal")]
-    private static extern int _MNDirectUIHelper_GetDashboardStyle ();
 
     [DllImport ("__Internal")]
     private static extern void _MNDirectUIHelper_ShowDashboard ();

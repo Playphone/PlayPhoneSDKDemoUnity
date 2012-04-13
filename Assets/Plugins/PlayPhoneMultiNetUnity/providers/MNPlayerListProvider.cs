@@ -115,7 +115,6 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNPlayerListProvider:RegisterEventHandler");
 
       if (eventHandlerRegistered) {
-        MNTools.DLog("MNPlayerListProvider:EventHandler already registered");
         return;
       }
 
@@ -183,7 +182,6 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNPlayerListProvider:RegisterEventHandler");
 
       if (eventHandlerRegistered) {
-        MNTools.DLog("MNPlayerListProvider:EventHandler already registered");
         return;
       }
 

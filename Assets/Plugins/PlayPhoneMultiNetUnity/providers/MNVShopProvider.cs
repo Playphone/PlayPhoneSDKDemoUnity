@@ -413,7 +413,6 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNVShopProvider:RegisterEventHandler");
 
       if (eventHandlerRegistered) {
-        MNTools.DLog("MNVShopProvider:EventHandler already registered");
         return;
       }
 
@@ -590,7 +589,6 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNVShopProvider:RegisterEventHandler");
 
       if (eventHandlerRegistered) {
-        MNTools.DLog("MNVShopProvider:EventHandler already registered");
         return;
       }
 

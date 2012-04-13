@@ -10,11 +10,13 @@ public class PPSDemoMultiplayerBasicsView : PPSDemoViewAbstract
   public PPSDemoMultiplayerBasicsView()
   {
     viewName = "Multiplayer Basics";
+
+    MNDirect.DidReceiveGameMessage += new MNDirect.DidReceiveGameMessageEventHandler(OnDidReceiveGameMessage);
   }
   
   public override void Draw()
   {
-    if (multiplayerBasicsInfo == null) 
+    if (multiplayerBasicsInfo == null)
     {
       multiplayerBasicsInfo = new MultiplayerBasicsInfo(PPSDemoInfoStorage.currentUserInfo);
     }
@@ -83,7 +85,48 @@ public class PPSDemoMultiplayerBasicsView : PPSDemoViewAbstract
     {
       GUILayout.Label("Invalid state");
     }
+
+    if (isGameMessagesAvailable(PPSDemoInfoStorage.curSessionStatus))
+    {
+      messageToSend = GUILayout.TextField(messageToSend,200);
+
+      if (GUILayout.Button("Send Message"))
+      {
+        MNDirect.SendGameMessage(messageToSend);
+        messageLog += string.Format("Me: {0}\n",messageToSend);
+
+        messageToSend = "";
+      }
+
+      GUILayout.TextArea(messageLog);
+    }
+  }
+
+  public override void OnClose ()
+  {
+    MNDirect.DidReceiveGameMessage -= new MNDirect.DidReceiveGameMessageEventHandler(OnDidReceiveGameMessage);
+  }
+
+  private bool isGameMessagesAvailable(int sessionStatus)
+  {
+    bool result = false;
+
+    if ((sessionStatus == MNConst.MN_IN_GAME_WAIT) ||
+      (sessionStatus == MNConst.MN_IN_GAME_START) ||
+      (sessionStatus == MNConst.MN_IN_GAME_PLAY) ||
+      (sessionStatus == MNConst.MN_IN_GAME_END)) {
+      result = true;
+    }
+
+    return result;
+  }
+
+  private void OnDidReceiveGameMessage(string message, MNUserInfo sender)
+  {
+    messageLog += string.Format("{0} ({1}): {2}\n",sender.UserName,sender.UserId,message);
   }
 
   protected MultiplayerBasicsInfo multiplayerBasicsInfo = null;
+  private string messageToSend = "";
+  private string messageLog = "";
 }

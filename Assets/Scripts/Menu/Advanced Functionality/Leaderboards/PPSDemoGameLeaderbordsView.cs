@@ -118,9 +118,6 @@ public class PPSDemoGameLeaderbordsView : PPSDemoViewAbstract
   protected int LeaderboardsDetailShow_GameId = PPSDemoCommonInfo.gameId;
   protected int gameId;
 
-  protected int LeaderboardsDetailShow_PlayerId = PPSDemoCommonInfo.playerId;
   protected int LeaderboardsDetailShow_GameSet = 0;
   protected string strBuffer = "";
-
-
 }

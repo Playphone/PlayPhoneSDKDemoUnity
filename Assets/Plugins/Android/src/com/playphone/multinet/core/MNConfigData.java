@@ -43,10 +43,14 @@ class MNConfigData implements MNURLTextDownloader.IEventHandler
     facebookAppId      = null;
     facebookSSOMode    = 0;
     launchTrackerUrl   = null;
+    installTrackerUrl  = null;
     shutdownTrackerUrl = null;
     beaconTrackerUrl   = null;
     gameVocabularyVersion = null;
     tryFastResumeMode  = 0;
+    multiWebFrontLoadDelay = 0;
+    allowReadWiFiMAC   = null;
+    useInstallIdInsteadOfUDID = 0;
    }
 
   public synchronized void load (IEventHandler eventHandler)
@@ -86,9 +90,13 @@ class MNConfigData implements MNURLTextDownloader.IEventHandler
         facebookSSOMode    = parseParamInteger(params,FACEBOOK_SSO_MODE_PARAM,true,0);
         tryFastResumeMode  = parseParamInteger(params,TRY_FAST_RESUME_MODE_PARAM,true,0);
         launchTrackerUrl   = params.get(LAUNCH_TRACKER_URL_PARAM);
+        installTrackerUrl  = params.get(INSTALL_TRACKER_URL_PARAM);
         shutdownTrackerUrl = params.get(SHUTDOWN_TRACKER_URL_PARAM);
         beaconTrackerUrl   = params.get(BEACON_TRACKER_URL_PARAM);
         gameVocabularyVersion = params.get(GAME_VOCABULARY_VERSION_PARAM);
+        multiWebFrontLoadDelay = parseParamInteger(params,MULTIWEBFRONT_LOAD_DELAY_PARAM,true,0);
+        allowReadWiFiMAC    = params.get(ALLOW_READ_WIFI_MAC_PARAM);
+        useInstallIdInsteadOfUDID = parseParamInteger(params,USE_INSTALL_ID_NOT_UDID_PARAM,true,0);
        }
       catch (IllegalArgumentException e)
        {
@@ -254,10 +262,14 @@ class MNConfigData implements MNURLTextDownloader.IEventHandler
   public String  facebookAppId;
   public int     facebookSSOMode;
   public String  launchTrackerUrl;
+  public String  installTrackerUrl;
   public String  beaconTrackerUrl;
   public String  shutdownTrackerUrl;
   public String  gameVocabularyVersion;
   public int     tryFastResumeMode;
+  public int     multiWebFrontLoadDelay;
+  public String  allowReadWiFiMAC;
+  public int     useInstallIdInsteadOfUDID;
 
   private static final String SMARTFOX_SERVER_ADDR_PARAM   = "SmartFoxServerAddr";
   private static final String SMARTFOX_SERVER_PORT_PARAM   = "SmartFoxServerPort";
@@ -269,9 +281,13 @@ class MNConfigData implements MNURLTextDownloader.IEventHandler
   private static final String FACEBOOK_APP_ID_PARAM        = "FacebookAppId";
   private static final String FACEBOOK_SSO_MODE_PARAM      = "FacebookSSOMode";
   private static final String LAUNCH_TRACKER_URL_PARAM     = "LaunchTrackerURL";
+  private static final String INSTALL_TRACKER_URL_PARAM    = "InstallTrackerURL";
   private static final String SHUTDOWN_TRACKER_URL_PARAM   = "ShutdownTrackerURL";
   private static final String BEACON_TRACKER_URL_PARAM     = "BeaconTrackerURL";
   private static final String GAME_VOCABULARY_VERSION_PARAM = "GameVocabularyVersion";
   private static final String TRY_FAST_RESUME_MODE_PARAM   = "TryFastResumeMode";
+  private static final String MULTIWEBFRONT_LOAD_DELAY_PARAM = "MultiWebFrontLoadDelay";
+  private static final String ALLOW_READ_WIFI_MAC_PARAM    = "AllowReadWiFiMAC";
+  private static final String USE_INSTALL_ID_NOT_UDID_PARAM = "UseInstallIdInsteadOfUDID";
  }
 

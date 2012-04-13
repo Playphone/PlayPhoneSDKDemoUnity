@@ -418,6 +418,7 @@ namespace MiniJSON {
             }
 
             void SerializeValue(object value) {
+                Array asArray;
                 IList asList;
                 IDictionary asDict;
                 string asStr;
@@ -431,8 +432,11 @@ namespace MiniJSON {
                 else if (value is bool) {
                     builder.Append(value.ToString().ToLower());
                 }
+                else if ((asArray = value as Array) != null) {
+                    SerializeArray(asArray);
+                }
                 else if ((asList = value as IList) != null) {
-                    SerializeArray(asList);
+                    SerializeList(asList);
                 }
                 else if ((asDict = value as IDictionary) != null) {
                     SerializeObject(asDict);
@@ -466,7 +470,25 @@ namespace MiniJSON {
                 builder.Append('}');
             }
 
-            void SerializeArray(IList anArray) {
+            void SerializeList(IList anArray) {
+                builder.Append('[');
+
+                bool first = true;
+
+                foreach (object obj in anArray) {
+                    if (!first) {
+                        builder.Append(',');
+                    }
+
+                    SerializeValue(obj);
+
+                    first = false;
+                }
+
+                builder.Append(']');
+            }
+
+            void SerializeArray(Array anArray) {
                 builder.Append('[');
 
                 bool first = true;

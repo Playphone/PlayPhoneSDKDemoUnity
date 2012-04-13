@@ -130,7 +130,6 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNScoreProgressProvider:RegisterEventHandler");
 
       if (eventHandlerRegistered) {
-        MNTools.DLog("MNScoreProgressProvider:EventHandler already registered");
         return;
       }
 
@@ -222,7 +221,6 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNScoreProgressProvider:RegisterEventHandler");
 
       if (eventHandlerRegistered) {
-        MNTools.DLog("MNScoreProgressProvider:EventHandler already registered");
         return;
       }
 

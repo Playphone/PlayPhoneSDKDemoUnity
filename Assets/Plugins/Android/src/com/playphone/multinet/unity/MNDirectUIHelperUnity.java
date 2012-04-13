@@ -16,12 +16,6 @@ public class MNDirectUIHelperUnity {
         });
     }
 
-    public static int getDashboardStyle() {
-        MNUnity.MARK();
-
-        return MNDirectUIHelper.getDashboardStyle();
-    }
-
     public static void showDashboard() {
         MNUnity.MARK();
 

@@ -53,7 +53,7 @@ namespace PlayPhone.MultiNet.Core
 
       return result;
     }
-    
+
     internal static bool removeComponent (Type compnentType) {
       lock (syncRoot) {
         if (registeredComponents.ContainsKey(compnentType)) {
@@ -67,7 +67,11 @@ namespace PlayPhone.MultiNet.Core
       }
       return true;
     }
-    
+
+    void Awake() {
+      DontDestroyOnLoad(this.gameObject);
+    }
+
     public static MNJsonSerializer Serializer = null;
   }
 }

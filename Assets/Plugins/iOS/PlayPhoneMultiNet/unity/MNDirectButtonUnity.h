@@ -22,4 +22,7 @@ void _MNDirectButton_Show();
 EXTERN_C
 void _MNDirectButton_Hide();
 
+EXTERN_C
+void _MNDirectButton_SetVShopEventAutoHandleEnabled(bool isEnabled);
+
 

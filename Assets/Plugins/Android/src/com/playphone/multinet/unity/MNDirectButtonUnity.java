@@ -52,5 +52,17 @@ public class MNDirectButtonUnity {
         });
     }
 
+    public static void setVShopEventAutoHandleEnabled(final boolean isEnabled) {
+        MNUnity.MARK();
+
+        UnityPlayer.currentActivity.runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                MNDirectButton.setVShopEventAutoHandleEnabled(isEnabled);
+            }
+        });
+    }
+
 }
 

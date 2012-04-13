@@ -44,4 +44,11 @@ void _MNDirectButton_Hide() {
     [MNDirectButton hide];
 }
 
+EXTERN_C
+void _MNDirectButton_SetVShopEventAutoHandleEnabled(bool isEnabled) {
+    MARK;
+
+    [MNDirectButton setVShopEventAutoHandleEnabled:isEnabled];
+}
+
 

@@ -11,9 +11,6 @@ EXTERN_C
 void _MNDirectUIHelper_SetDashboardStyle(int newStyle);
 
 EXTERN_C
-int _MNDirectUIHelper_GetDashboardStyle();
-
-EXTERN_C
 void _MNDirectUIHelper_ShowDashboard();
 
 EXTERN_C

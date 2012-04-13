@@ -20,10 +20,11 @@ import it.gotoandplay.smartfoxclient.SmartFoxClient;
 
 class MNSmartFoxFacade implements ISFSEventListener,MNConfigData.IEventHandler
  {
-  public MNSmartFoxFacade (IMNPlatform platform,
-                           String      configUrl)
+  public MNSmartFoxFacade (MNSession session, String configUrl)
    {
     state = STATE_DISCONNECTED;
+
+    this.session = session;
 
     configData = new MNConfigData(configUrl);
 
@@ -32,7 +33,7 @@ class MNSmartFoxFacade implements ISFSEventListener,MNConfigData.IEventHandler
     lobbyRoomId = MNSession.MN_LOBBY_ROOM_ID_UNDEFINED;
 
     connectionActivity = new MNConnectionActivity
-                              (new MNNetworkStatus(platform),this);
+                              (new MNNetworkStatus(session.getPlatform()),this);
 
     smartFox.addEventListener(SFSEvent.onConnection,this);
     smartFox.addEventListener(SFSEvent.onConnectionLost,this);
@@ -120,7 +121,7 @@ class MNSmartFoxFacade implements ISFSEventListener,MNConfigData.IEventHandler
      }
    }
 
-  public void login (String zone, String userLogin, String userPassword)
+  public void login (String zone, String userLogin, StructuredPassword userPassword)
    {
     connectionActivity.cancel();
 
@@ -170,7 +171,7 @@ class MNSmartFoxFacade implements ISFSEventListener,MNConfigData.IEventHandler
     return userLogin;
    }
 
-  public void updateLoginInfo (String userLogin, String userPassword)
+  public void updateLoginInfo (String userLogin, StructuredPassword userPassword)
    {
     this.userLogin    = userLogin;
     this.userPassword = userPassword;
@@ -256,7 +257,9 @@ class MNSmartFoxFacade implements ISFSEventListener,MNConfigData.IEventHandler
 
           state = STATE_CONNECTED;
 
-          smartFox.login(zone,userLogin,userPassword);
+          smartFox.login(zone,userLogin,
+                         userPassword.buildPassword
+                          (MNUtils.stringGetMD5String(session.getUniqueAppId())));
          }
         else
          {
@@ -465,13 +468,32 @@ class MNSmartFoxFacade implements ISFSEventListener,MNConfigData.IEventHandler
     public String userAuthSign;
    }
 
+  public static class StructuredPassword
+   {
+    public StructuredPassword (String passwordPrefix, String passwordSuffix)
+     {
+      this.prefix = passwordPrefix;
+      this.suffix = passwordSuffix;
+     }
+
+    public String buildPassword (String uniqId)
+     {
+      return prefix + uniqId + suffix;
+     }
+
+    private String prefix;
+    private String suffix;
+   }
+
   public MNConfigData configData;
 
+
+  private MNSession session;
   SmartFoxClient smartFox = new SmartFoxClient(false);
   private MNConnectionActivity connectionActivity;
   private String zone;
   private String userLogin;
-  private String userPassword;
+  private StructuredPassword userPassword;
   private IEventHandler eventHandler;
   private int state;
   private boolean autoJoinInvoked;

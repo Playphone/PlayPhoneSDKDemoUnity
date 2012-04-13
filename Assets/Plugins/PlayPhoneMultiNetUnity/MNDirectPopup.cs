@@ -11,10 +11,19 @@ namespace PlayPhone.MultiNet
 {
   public class MNDirectPopup : MonoBehaviour
   {
+    #if UNITY_IPHONE
     public const int MNDIRECTPOPUP_WELCOME = 1;
     public const int MNDIRECTPOPUP_ACHIEVEMENTS = 2;
     public const int MNDIRECTPOPUP_NEW_HI_SCORES = 4;
-    public const int MNDIRECTPOPUP_ALL = 7;
+    public const int MNDIRECTPOPUP_WEB_EVENT = 65536;
+    public const int MNDIRECTPOPUP_ALL = 65543;
+    #elif UNITY_ANDROID
+    public const int MNDIRECTPOPUP_WELCOME = 1;
+    public const int MNDIRECTPOPUP_ACHIEVEMENTS = 2;
+    public const int MNDIRECTPOPUP_NEW_HI_SCORES = 4;
+    public const int MNDIRECTPOPUP_WEB_EVENT = 8;
+    public const int MNDIRECTPOPUP_ALL = 15;
+    #endif
 
     #if UNITY_IPHONE
 

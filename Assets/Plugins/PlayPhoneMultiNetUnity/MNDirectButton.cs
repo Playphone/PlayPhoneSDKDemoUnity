@@ -88,6 +88,17 @@ namespace PlayPhone.MultiNet
       }
     }
 
+    public static void SetVShopEventAutoHandleEnabled(bool isEnabled) {
+      MNTools.DLog("MNDirectButton:SetVShopEventAutoHandleEnabled");
+
+      if (Application.platform == RuntimePlatform.IPhonePlayer) {
+        _MNDirectButton_SetVShopEventAutoHandleEnabled(isEnabled);
+      }
+      else {
+        throw new MNNotOnDeviceExcepton();
+      }
+    }
+
     #elif UNITY_ANDROID
 
     public static bool IsVisible() {
@@ -145,6 +156,17 @@ namespace PlayPhone.MultiNet
       }
     }
 
+    public static void SetVShopEventAutoHandleEnabled(bool isEnabled) {
+      MNTools.DLog("MNDirectButton:SetVShopEventAutoHandleEnabled");
+
+      if (Application.platform == RuntimePlatform.Android) {
+        MNDirectButtonUnityClass.CallStatic("setVShopEventAutoHandleEnabled",isEnabled);
+      }
+      else {
+        throw new MNNotOnDeviceExcepton();
+      }
+    }
+
     #endif
 
     #if UNITY_IPHONE
@@ -163,6 +185,9 @@ namespace PlayPhone.MultiNet
 
     [DllImport ("__Internal")]
     private static extern void _MNDirectButton_Hide ();
+
+    [DllImport ("__Internal")]
+    private static extern void _MNDirectButton_SetVShopEventAutoHandleEnabled (bool isEnabled);
 
     #elif UNITY_ANDROID
 

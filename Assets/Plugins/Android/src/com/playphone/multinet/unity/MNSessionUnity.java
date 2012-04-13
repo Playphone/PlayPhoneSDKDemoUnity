@@ -226,6 +226,19 @@ public class MNSessionUnity {
                 }
             });
         }
+
+        @Override
+        public void mnSessionJoinRoomInvitationReceived(final MNJoinRoomInvitationParams params) {
+            MNUnity.MARK();
+
+            UnityPlayer.currentActivity.runOnUiThread(new Runnable()
+            {
+                public void run()
+                {
+                  MNUnity.callUnityFunction("MNUM_mnSessionJoinRoomInvitationReceived",params);
+                }
+            });
+        }
     }
 
     private static MNSessionEventHandler registeredEventHandler = null;

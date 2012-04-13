@@ -259,6 +259,36 @@ namespace PlayPhone.MultiNet.Core
     }
     private ExecUICommandReceivedEventHandler ExecUICommandReceivedStorage;
 
+    public delegate void JoinRoomInvitationReceivedEventHandler(MNJoinRoomInvitationParams _params);
+    public event JoinRoomInvitationReceivedEventHandler JoinRoomInvitationReceived
+    {
+      [MethodImpl(MethodImplOptions.Synchronized)]
+      add
+      {
+        MNTools.DLog("JoinRoomInvitationReceivedEventHandler.add");
+        if (JoinRoomInvitationReceivedStorage == null) {
+          JoinRoomInvitationReceivedStorage += value;
+
+          RegisterEventHandler();
+        }
+        else {
+          JoinRoomInvitationReceivedStorage += value;
+        }
+      }
+
+      [MethodImpl(MethodImplOptions.Synchronized)]
+      remove
+      {
+        MNTools.DLog("JoinRoomInvitationReceivedEventHandler.remove");
+        JoinRoomInvitationReceivedStorage -= value;
+
+        if (JoinRoomInvitationReceivedStorage == null) {
+          UnregisterEventHandler();
+        }
+      }
+    }
+    private JoinRoomInvitationReceivedEventHandler JoinRoomInvitationReceivedStorage;
+
     #endregion MNSessionEventHandler
 
     #if UNITY_IPHONE
@@ -421,7 +451,6 @@ namespace PlayPhone.MultiNet.Core
       MNTools.DLog("MNSession:RegisterEventHandler");
 
       if (eventHandlerRegistered) {
-        MNTools.DLog("MNSession:EventHandler already registered");
         return;
       }
 
@@ -610,7 +639,6 @@ namespace PlayPhone.MultiNet.Core
       MNTools.DLog("MNSession:RegisterEventHandler");
 
       if (eventHandlerRegistered) {
-        MNTools.DLog("MNSession:EventHandler already registered");
         return;
       }
 
@@ -735,6 +763,18 @@ namespace PlayPhone.MultiNet.Core
         MNTools.DetailedLogList("MNUM_mnSessionExecUICommandReceived params",paramsArray);
 
         ExecUICommandReceivedStorage((string)paramsArray[0], (string)paramsArray[1]);
+      }
+    }
+
+    private void MNUM_mnSessionJoinRoomInvitationReceived(string messageParams) {
+      MNTools.DLog("MNSession:MNUM_mnSessionJoinRoomInvitationReceived: messageParams=<" + messageParams + ">");
+
+      if (JoinRoomInvitationReceivedStorage != null) {
+        List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
+
+        MNTools.DetailedLogList("MNUM_mnSessionJoinRoomInvitationReceived params",paramsArray);
+
+        JoinRoomInvitationReceivedStorage(MNSerializerMapper.MNJoinRoomInvitationParamsFromDictionary((IDictionary)paramsArray[0]));
       }
     }
 
