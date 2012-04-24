@@ -348,7 +348,7 @@ namespace PlayPhone.MultiNet
       if (DoStartGameWithParams != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_mnDirectDoStartGameWithParams params",paramsArray);
+        MNTools.DLogList("MNUM_mnDirectDoStartGameWithParams params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         DoStartGameWithParams(MNSerializerMapper.MNGameParamsFromDictionary((IDictionary)paramsArray[0]));
       }
@@ -384,7 +384,7 @@ namespace PlayPhone.MultiNet
       if (DidReceiveGameMessage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_mnDirectDidReceiveGameMessage params",paramsArray);
+        MNTools.DLogList("MNUM_mnDirectDidReceiveGameMessage params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         DidReceiveGameMessage((string)paramsArray[0], MNSerializerMapper.MNUserInfoFromDictionary((IDictionary)paramsArray[1]));
       }
@@ -396,7 +396,7 @@ namespace PlayPhone.MultiNet
       if (SessionStatusChanged != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_mnDirectSessionStatusChanged params",paramsArray);
+        MNTools.DLogList("MNUM_mnDirectSessionStatusChanged params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         SessionStatusChanged(Convert.ToInt32(paramsArray[0]));
       }
@@ -408,7 +408,7 @@ namespace PlayPhone.MultiNet
       if (ErrorOccurred != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_mnDirectErrorOccurred params",paramsArray);
+        MNTools.DLogList("MNUM_mnDirectErrorOccurred params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         ErrorOccurred(MNSerializerMapper.MNErrorInfoFromDictionary((IDictionary)paramsArray[0]));
       }

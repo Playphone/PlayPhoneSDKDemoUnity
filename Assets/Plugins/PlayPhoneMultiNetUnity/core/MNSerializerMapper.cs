@@ -8,7 +8,7 @@ namespace PlayPhone.MultiNet.Core
   public class MNSerializerMapper
   {
     public static object ObjectFromDictionary(IDictionary deserializedObject,Type targetType) {
-      MNTools.DetailedLog(string.Format("ObjectFromDictionary. ObjectType={0}",MNTools.SafeToString(targetType)));
+      MNTools.DLog(string.Format("ObjectFromDictionary. ObjectType={0}",MNTools.SafeToString(targetType)),MNTools.DEBUG_LEVEL_DETAILED);
       object result = null;
 
       if (targetType.Equals(typeof(MNErrorInfo))) {

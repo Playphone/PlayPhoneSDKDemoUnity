@@ -1,9 +1,3 @@
-//#define MN_DEBUG
-
-#if MN_DEBUG
-//#define MN_DETAILED_LOG
-#endif
-
 using UnityEngine;
 using System;
 using System.Collections;
@@ -13,56 +7,69 @@ namespace PlayPhone.MultiNet.Core
 {
   public class MNTools
   {
-    private const bool MN_DEBUG = true;
-
     public const string NullString = "null";
 
-    public static void DLog(string message)
-    {
-      #if MN_DEBUG
-      Debug.Log("MNUW:C#:" + message);
+    public const int DEBUG_LEVEL_OFF = 0;
+    public const int DEBUG_LEVEL_NORMAL = 1;
+    public const int DEBUG_LEVEL_DETAILED = 2;
+
+    private static int CurrentDebugLevel = DEBUG_LEVEL_OFF;
+
+    public static void SetDebugLevel(int debugLevel) {
+      CurrentDebugLevel = debugLevel;
+
+      #if UNITY_ANDROID
+      AndroidJavaClass mnUnityClass = new AndroidJavaClass("com.playphone.multinet.unity.MNUnity");
+
+      if (mnUnityClass != null) {
+        mnUnityClass.CallStatic("setDebugLevel",debugLevel);
+      }
       #endif
     }
 
-    public static void DetailedLog(string message) {
-      #if MN_DETAILED_LOG
-      DLog(message);
-      #endif
+    public static void DLog(string message) {
+      DLog(message,DEBUG_LEVEL_NORMAL);
     }
 
-    public static void DetailedLogDictionary(string name,IDictionary deserializedObject) {
-      string logString = "DetailedLogDictionary. " + name + ":\n";
+    public static void DLog(string message,int debugLevel) {
+      if (CurrentDebugLevel >= debugLevel) {
+        Debug.Log("MNUW:C#:" + message);
+      }
+    }
+
+    public static void DLogDictionary(string name,IDictionary deserializedObject,int debugLevel) {
+      string logString = "DLogDictionary. " + name + ":\n";
 
       foreach (object key in deserializedObject.Keys) {
         logString += key.ToString() + ":" + deserializedObject[key] + "\n";
       }
 
-      MNTools.DetailedLog(logString);
+      MNTools.DLog(logString,debugLevel);
     }
 
-    public static void DetailedLogArrayList(string listName,ArrayList list) {
-      string logString = "DetailedLogArrayList. " + listName + ":\n";
+    public static void DLogArrayList(string listName,ArrayList list,int debugLevel) {
+      string logString = "DLogArrayList. " + listName + ":\n";
 
       for (int index = 0;index < list.Count;index++) {
         logString += string.Format("{0}. {1}\n",index,SafeToString(list[index]));
       }
 
-      MNTools.DetailedLog(logString);
+      MNTools.DLog(logString,debugLevel);
     }
 
-    public static void DetailedLogList(string listName,List<object> list) {
-      string logString = "DetailedLogList. " + listName + ":\n";
+    public static void DLogList(string listName,List<object> list,int debugLevel) {
+      string logString = "DLogList. " + listName + ":\n";
 
       for (int index = 0;index < list.Count;index++) {
         logString += string.Format("{0}. {1}\n",index,SafeToString(list[index]));
       }
 
-      MNTools.DetailedLog(logString);
+      MNTools.DLog(logString,debugLevel);
     }
 
     public static void ELog(string message)
     {
-      Debug.Log("MNUW:Error:C#:" + message);
+      Debug.LogError("MNUW:Error:C#:" + message);
     }
 
     public static bool IsNullableType(Type type) {

@@ -199,7 +199,7 @@ namespace PlayPhone.MultiNet.Providers
       if (NewHiScoreStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onNewHiScore params",paramsArray);
+        MNTools.DLogList("MNUM_onNewHiScore params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         NewHiScoreStorage(Convert.ToInt64(paramsArray[0]), Convert.ToInt32(paramsArray[1]), Convert.ToInt32(paramsArray[2]));
       }

@@ -650,7 +650,7 @@ namespace PlayPhone.MultiNet.Providers
       if (CheckoutVShopPackSuccessStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onCheckoutVShopPackSuccess params",paramsArray);
+        MNTools.DLogList("MNUM_onCheckoutVShopPackSuccess params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         CheckoutVShopPackSuccessStorage(MNSerializerMapper.MNVShopProviderCheckoutVShopPackSuccessInfoFromDictionary((IDictionary)paramsArray[0]));
       }
@@ -662,7 +662,7 @@ namespace PlayPhone.MultiNet.Providers
       if (CheckoutVShopPackFailStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onCheckoutVShopPackFail params",paramsArray);
+        MNTools.DLogList("MNUM_onCheckoutVShopPackFail params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         CheckoutVShopPackFailStorage(MNSerializerMapper.MNVShopProviderCheckoutVShopPackFailInfoFromDictionary((IDictionary)paramsArray[0]));
       }
@@ -674,7 +674,7 @@ namespace PlayPhone.MultiNet.Providers
       if (VShopReadyStatusChangedStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onVShopReadyStatusChanged params",paramsArray);
+        MNTools.DLogList("MNUM_onVShopReadyStatusChanged params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         VShopReadyStatusChangedStorage(Convert.ToBoolean(paramsArray[0]));
       }

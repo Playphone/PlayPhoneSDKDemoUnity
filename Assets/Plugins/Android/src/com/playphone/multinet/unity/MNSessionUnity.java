@@ -48,6 +48,12 @@ public class MNSessionUnity {
         return MNDirect.getSession().getStatus();
     }
 
+    public static boolean isInGameRoom() {
+        MNUnity.MARK();
+
+        return MNDirect.getSession().isInGameRoom();
+    }
+
     public static void leaveRoom() {
         MNUnity.MARK();
 

@@ -201,7 +201,7 @@ namespace PlayPhone.MultiNet.Providers
       if (ServerInfoItemReceivedStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onServerInfoItemReceived params",paramsArray);
+        MNTools.DLogList("MNUM_onServerInfoItemReceived params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         ServerInfoItemReceivedStorage(Convert.ToInt32(paramsArray[0]), (string)paramsArray[1]);
       }
@@ -213,7 +213,7 @@ namespace PlayPhone.MultiNet.Providers
       if (ServerInfoItemRequestFailedWithErrorStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onServerInfoItemRequestFailedWithError params",paramsArray);
+        MNTools.DLogList("MNUM_onServerInfoItemRequestFailedWithError params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         ServerInfoItemRequestFailedWithErrorStorage(Convert.ToInt32(paramsArray[0]), (string)paramsArray[1]);
       }

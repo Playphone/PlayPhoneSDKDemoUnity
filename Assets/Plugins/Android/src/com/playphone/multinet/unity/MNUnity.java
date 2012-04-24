@@ -11,20 +11,33 @@ import com.playphone.multinet.unity.serializer.MNSerializer;
 import com.unity3d.player.UnityPlayer;
 
 public class MNUnity {
-    private static boolean MNUnity_DEBUG    = false;
     private static String  MNUnityLogTag    = "MNUnity";
     private static String  MNUnityLogPrefix = "MNUW:Java:";
-    public static MNSerializer serializer = new MNJsonSerializer(); 
+    public static MNSerializer serializer = new MNJsonSerializer();
+    
+    public static final int DEBUG_LEVEL_OFF = 0;
+    public static final int DEBUG_LEVEL_NORMAL = 1;
+    public static final int DEBUG_LEVEL_DETAILED = 2;
+    
+    private static int currentDebugLevel = DEBUG_LEVEL_OFF;
 
+    public static void setDebugLevel(int debugLevel) {
+    	currentDebugLevel = debugLevel;
+    }
+    
     public static void MARK() {
-        if (MNUnity_DEBUG) {
+        if (currentDebugLevel >= DEBUG_LEVEL_NORMAL) {
             int markedStackTraceElementIndex = 3;
             Log.d(MNUnityLogTag,MNUnityLogPrefix + Thread.currentThread().getStackTrace()[markedStackTraceElementIndex].toString());
         }
     }
 
     public static void DLog(String message) {
-        if (MNUnity_DEBUG) {
+    	DLog(message,DEBUG_LEVEL_NORMAL);
+    }
+    
+    public static void DLog(String message,int debugLevel) {
+    	if (currentDebugLevel >= debugLevel) {
             Log.d(MNUnityLogTag,MNUnityLogPrefix + message);
         }
     }

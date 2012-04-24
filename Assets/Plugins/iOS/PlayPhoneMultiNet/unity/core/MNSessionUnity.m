@@ -100,6 +100,13 @@ int _MNSession_GetStatus() {
 }
 
 EXTERN_C
+bool _MNSession_IsInGameRoom() {
+    MARK;
+
+    return [[MNDirect getSession] isInGameRoom];
+}
+
+EXTERN_C
 void _MNSession_LeaveRoom() {
     MARK;
 

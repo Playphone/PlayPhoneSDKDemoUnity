@@ -273,7 +273,7 @@ namespace PlayPhone.MultiNet.Providers
       if (GameRoomCookieDownloadSucceededStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onGameRoomCookieDownloadSucceeded params",paramsArray);
+        MNTools.DLogList("MNUM_onGameRoomCookieDownloadSucceeded params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         GameRoomCookieDownloadSucceededStorage(Convert.ToInt32(paramsArray[0]), Convert.ToInt32(paramsArray[1]), (string)paramsArray[2]);
       }
@@ -285,7 +285,7 @@ namespace PlayPhone.MultiNet.Providers
       if (GameRoomCookieDownloadFailedWithErrorStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onGameRoomCookieDownloadFailedWithError params",paramsArray);
+        MNTools.DLogList("MNUM_onGameRoomCookieDownloadFailedWithError params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         GameRoomCookieDownloadFailedWithErrorStorage(Convert.ToInt32(paramsArray[0]), Convert.ToInt32(paramsArray[1]), (string)paramsArray[2]);
       }
@@ -297,7 +297,7 @@ namespace PlayPhone.MultiNet.Providers
       if (CurrentGameRoomCookieUpdatedStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onCurrentGameRoomCookieUpdated params",paramsArray);
+        MNTools.DLogList("MNUM_onCurrentGameRoomCookieUpdated params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         CurrentGameRoomCookieUpdatedStorage(Convert.ToInt32(paramsArray[0]), (string)paramsArray[1]);
       }

@@ -104,7 +104,7 @@ namespace PlayPhone.MultiNet.Providers
 
       List<object> srcData = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-      MNTools.DetailedLogList("MNUM_mnDirectSessionStatusChanged params",srcData);
+      MNTools.DLogList("MNUM_mnDirectSessionStatusChanged params",srcData,MNTools.DEBUG_LEVEL_DETAILED);
 
       long requestId = Convert.ToInt64(srcData[0]);
       MNWSInfoRequest request = null;

@@ -8,7 +8,7 @@ namespace PlayPhone.MultiNet.Core
   public class MNSerializerProxy
   {
     public static IDictionary ObjectToDictionary(object srcObject,Type srcObjectType) {
-      MNTools.DetailedLog(string.Format("ObjectToDictionary. ObjectType={0}",MNTools.SafeToString(srcObjectType)));
+      MNTools.DLog(string.Format("ObjectToDictionary. ObjectType={0}",MNTools.SafeToString(srcObjectType)),MNTools.DEBUG_LEVEL_DETAILED);
 
       IDictionary proxyDictionary = null;
 

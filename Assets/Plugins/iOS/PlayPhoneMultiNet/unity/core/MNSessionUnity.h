@@ -23,6 +23,9 @@ EXTERN_C
 int _MNSession_GetStatus();
 
 EXTERN_C
+bool _MNSession_IsInGameRoom();
+
+EXTERN_C
 void _MNSession_LeaveRoom();
 
 EXTERN_C

@@ -219,7 +219,7 @@ namespace PlayPhone.MultiNet.Providers
       if (PlayerJoinStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onPlayerJoin params",paramsArray);
+        MNTools.DLogList("MNUM_onPlayerJoin params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         PlayerJoinStorage(MNSerializerMapper.MNUserInfoFromDictionary((IDictionary)paramsArray[0]));
       }
@@ -231,7 +231,7 @@ namespace PlayPhone.MultiNet.Providers
       if (PlayerLeftStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onPlayerLeft params",paramsArray);
+        MNTools.DLogList("MNUM_onPlayerLeft params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         PlayerLeftStorage(MNSerializerMapper.MNUserInfoFromDictionary((IDictionary)paramsArray[0]));
       }

@@ -42,7 +42,7 @@ public class PPSDemoPlayerLeaderbordsView : PPSDemoViewAbstract
     }
     else
     {
-      LeaderboardsDetailShow_PlayerId = PPSDemoCommonInfo.playerId;
+      LeaderboardsDetailShow_PlayerId = PPSDemoInfoStorage.currentUserInfo.UserId;
       GUILayout.Label("Player id:"+ LeaderboardsDetailShow_PlayerId);    
     }
         
@@ -73,8 +73,8 @@ public class PPSDemoPlayerLeaderbordsView : PPSDemoViewAbstract
     }
     else
     {
-      gameId = 10900;
-      GUILayout.Label("Game id: 10900");    
+      gameId = PPSDemoCommonInfo.gameId;
+      GUILayout.Label("Game id: " + PPSDemoCommonInfo.gameId);    
     }
         
     GUILayout.Label("Game set:");
@@ -153,7 +153,7 @@ public class PPSDemoPlayerLeaderbordsView : PPSDemoViewAbstract
   protected int LeaderboardsDetailShow_GameId = PPSDemoCommonInfo.gameId;
   protected int gameId;
 
-  protected int LeaderboardsDetailShow_PlayerId = 2103407;
+  protected long LeaderboardsDetailShow_PlayerId = 0;
   protected int LeaderboardsDetailShow_GameSet = 0;
   protected string strBuffer = "";
 }

@@ -348,6 +348,17 @@ namespace PlayPhone.MultiNet.Core
       }
     }
 
+    public bool IsInGameRoom() {
+      MNTools.DLog("MNSession:IsInGameRoom");
+
+      if (Application.platform == RuntimePlatform.IPhonePlayer) {
+        return _MNSession_IsInGameRoom();
+      }
+      else {
+        throw new MNNotOnDeviceExcepton();
+      }
+    }
+
     public void LeaveRoom() {
       MNTools.DLog("MNSession:LeaveRoom");
 
@@ -536,6 +547,17 @@ namespace PlayPhone.MultiNet.Core
       }
     }
 
+    public bool IsInGameRoom() {
+      MNTools.DLog("MNSession:IsInGameRoom");
+
+      if (Application.platform == RuntimePlatform.Android) {
+        return MNSessionUnityClass.CallStatic<bool>("isInGameRoom");
+      }
+      else {
+        throw new MNNotOnDeviceExcepton();
+      }
+    }
+
     public void LeaveRoom() {
       MNTools.DLog("MNSession:LeaveRoom");
 
@@ -676,7 +698,7 @@ namespace PlayPhone.MultiNet.Core
       if (SessionStatusChangedStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_mnSessionStatusChanged params",paramsArray);
+        MNTools.DLogList("MNUM_mnSessionStatusChanged params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         SessionStatusChangedStorage(Convert.ToInt32(paramsArray[0]), Convert.ToInt32(paramsArray[1]));
       }
@@ -688,7 +710,7 @@ namespace PlayPhone.MultiNet.Core
       if (UserChangedStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_mnSessionUserChanged params",paramsArray);
+        MNTools.DLogList("MNUM_mnSessionUserChanged params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         UserChangedStorage(Convert.ToInt64(paramsArray[0]));
       }
@@ -700,7 +722,7 @@ namespace PlayPhone.MultiNet.Core
       if (RoomUserJoinStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_mnSessionRoomUserJoin params",paramsArray);
+        MNTools.DLogList("MNUM_mnSessionRoomUserJoin params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         RoomUserJoinStorage(MNSerializerMapper.MNUserInfoFromDictionary((IDictionary)paramsArray[0]));
       }
@@ -712,7 +734,7 @@ namespace PlayPhone.MultiNet.Core
       if (RoomUserLeaveStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_mnSessionRoomUserLeave params",paramsArray);
+        MNTools.DLogList("MNUM_mnSessionRoomUserLeave params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         RoomUserLeaveStorage(MNSerializerMapper.MNUserInfoFromDictionary((IDictionary)paramsArray[0]));
       }
@@ -724,7 +746,7 @@ namespace PlayPhone.MultiNet.Core
       if (GameMessageReceivedStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_mnSessionGameMessageReceived params",paramsArray);
+        MNTools.DLogList("MNUM_mnSessionGameMessageReceived params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         GameMessageReceivedStorage((string)paramsArray[0], MNSerializerMapper.MNUserInfoFromDictionary((IDictionary)paramsArray[1]));
       }
@@ -736,7 +758,7 @@ namespace PlayPhone.MultiNet.Core
       if (ErrorOccurredStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_mnSessionErrorOccurred params",paramsArray);
+        MNTools.DLogList("MNUM_mnSessionErrorOccurred params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         ErrorOccurredStorage(MNSerializerMapper.MNErrorInfoFromDictionary((IDictionary)paramsArray[0]));
       }
@@ -748,7 +770,7 @@ namespace PlayPhone.MultiNet.Core
       if (ExecAppCommandReceivedStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_mnSessionExecAppCommandReceived params",paramsArray);
+        MNTools.DLogList("MNUM_mnSessionExecAppCommandReceived params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         ExecAppCommandReceivedStorage((string)paramsArray[0], (string)paramsArray[1]);
       }
@@ -760,7 +782,7 @@ namespace PlayPhone.MultiNet.Core
       if (ExecUICommandReceivedStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_mnSessionExecUICommandReceived params",paramsArray);
+        MNTools.DLogList("MNUM_mnSessionExecUICommandReceived params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         ExecUICommandReceivedStorage((string)paramsArray[0], (string)paramsArray[1]);
       }
@@ -772,7 +794,7 @@ namespace PlayPhone.MultiNet.Core
       if (JoinRoomInvitationReceivedStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_mnSessionJoinRoomInvitationReceived params",paramsArray);
+        MNTools.DLogList("MNUM_mnSessionJoinRoomInvitationReceived params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         JoinRoomInvitationReceivedStorage(MNSerializerMapper.MNJoinRoomInvitationParamsFromDictionary((IDictionary)paramsArray[0]));
       }
@@ -796,6 +818,9 @@ namespace PlayPhone.MultiNet.Core
 
     [DllImport ("__Internal")]
     private static extern int _MNSession_GetStatus ();
+
+    [DllImport ("__Internal")]
+    private static extern bool _MNSession_IsInGameRoom ();
 
     [DllImport ("__Internal")]
     private static extern void _MNSession_LeaveRoom ();

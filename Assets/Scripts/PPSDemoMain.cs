@@ -9,6 +9,7 @@ public class PPSDemoMain : MonoBehaviour
 {
   void Start ()
   {
+    MNTools.SetDebugLevel(MNTools.DEBUG_LEVEL_OFF);
     MNTools.DLog("Start");
 
     MNDirect.Init(PPSDemoCommonInfo.gameId,
@@ -19,10 +20,7 @@ public class PPSDemoMain : MonoBehaviour
 
     MNDirectButton.InitWithLocation((int)MNDirectButton.MNDIRECTBUTTON_TOPRIGHT);
     MNDirectButton.Show();
-    MNDirectPopup.Init((int)(
-    MNDirectPopup.MNDIRECTPOPUP_WELCOME      |
-    MNDirectPopup.MNDIRECTPOPUP_ACHIEVEMENTS |
-    MNDirectPopup.MNDIRECTPOPUP_NEW_HI_SCORES));
+    MNDirectPopup.Init((int)(MNDirectPopup.MNDIRECTPOPUP_ALL));
 
     MNDirectUIHelper.BindHostActivity();
 

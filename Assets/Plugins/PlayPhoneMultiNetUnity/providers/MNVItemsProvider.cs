@@ -573,7 +573,7 @@ namespace PlayPhone.MultiNet.Providers
       if (VItemsTransactionCompletedStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onVItemsTransactionCompleted params",paramsArray);
+        MNTools.DLogList("MNUM_onVItemsTransactionCompleted params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         VItemsTransactionCompletedStorage(MNSerializerMapper.MNVItemsProviderTransactionInfoFromDictionary((IDictionary)paramsArray[0]));
       }
@@ -585,7 +585,7 @@ namespace PlayPhone.MultiNet.Providers
       if (VItemsTransactionFailedStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onVItemsTransactionFailed params",paramsArray);
+        MNTools.DLogList("MNUM_onVItemsTransactionFailed params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         VItemsTransactionFailedStorage(MNSerializerMapper.MNVItemsProviderTransactionErrorFromDictionary((IDictionary)paramsArray[0]));
       }

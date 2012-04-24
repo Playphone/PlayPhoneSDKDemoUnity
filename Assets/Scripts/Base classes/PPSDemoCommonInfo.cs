@@ -1,7 +1,6 @@
 public class PPSDemoCommonInfo{
 
   public static int gameId              = 10900;
-  public static int playerId            = 2103407;
   public static uint gameSecretPart1    = 0xae2b10f2;
   public static uint gameSecretPart2    = 0x248f58d9;
   public static uint gameSecretPart3    = 0xc9654f24;

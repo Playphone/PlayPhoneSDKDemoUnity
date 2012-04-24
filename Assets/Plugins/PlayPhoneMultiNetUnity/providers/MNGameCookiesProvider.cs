@@ -281,7 +281,7 @@ namespace PlayPhone.MultiNet.Providers
       if (GameCookieDownloadSucceededStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onGameCookieDownloadSucceeded params",paramsArray);
+        MNTools.DLogList("MNUM_onGameCookieDownloadSucceeded params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         GameCookieDownloadSucceededStorage(Convert.ToInt32(paramsArray[0]), (string)paramsArray[1]);
       }
@@ -293,7 +293,7 @@ namespace PlayPhone.MultiNet.Providers
       if (GameCookieDownloadFailedWithErrorStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onGameCookieDownloadFailedWithError params",paramsArray);
+        MNTools.DLogList("MNUM_onGameCookieDownloadFailedWithError params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         GameCookieDownloadFailedWithErrorStorage(Convert.ToInt32(paramsArray[0]), (string)paramsArray[1]);
       }
@@ -305,7 +305,7 @@ namespace PlayPhone.MultiNet.Providers
       if (GameCookieUploadSucceededStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onGameCookieUploadSucceeded params",paramsArray);
+        MNTools.DLogList("MNUM_onGameCookieUploadSucceeded params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         GameCookieUploadSucceededStorage(Convert.ToInt32(paramsArray[0]));
       }
@@ -317,7 +317,7 @@ namespace PlayPhone.MultiNet.Providers
       if (GameCookieUploadFailedWithErrorStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onGameCookieUploadFailedWithError params",paramsArray);
+        MNTools.DLogList("MNUM_onGameCookieUploadFailedWithError params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         GameCookieUploadFailedWithErrorStorage(Convert.ToInt32(paramsArray[0]), (string)paramsArray[1]);
       }

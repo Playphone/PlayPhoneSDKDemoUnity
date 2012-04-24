@@ -399,7 +399,7 @@ namespace PlayPhone.MultiNet.Providers
       if (PlayerAchievementUnlockedStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onPlayerAchievementUnlocked params",paramsArray);
+        MNTools.DLogList("MNUM_onPlayerAchievementUnlocked params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         PlayerAchievementUnlockedStorage(Convert.ToInt32(paramsArray[0]));
       }

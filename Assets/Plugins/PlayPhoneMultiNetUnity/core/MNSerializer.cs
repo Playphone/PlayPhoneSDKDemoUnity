@@ -11,7 +11,7 @@ namespace PlayPhone.MultiNet.Core
     }
 
     public string Serialize (object srcObject) {
-      MNTools.DetailedLog(string.Format("MNJsonSerializer.Serialize object: {0}",MNTools.SafeToString(srcObject)));
+      MNTools.DLog(string.Format("MNJsonSerializer.Serialize object: {0}",MNTools.SafeToString(srcObject)),MNTools.DEBUG_LEVEL_DETAILED);
 
       if (srcObject == null) {
         return "[null]";
@@ -78,7 +78,7 @@ namespace PlayPhone.MultiNet.Core
     }
 
     public string SerializeDictionary (IDictionary srcDict) {
-      MNTools.DetailedLogDictionary("SerializeDictionary",srcDict);
+      MNTools.DLogDictionary("SerializeDictionary",srcDict,MNTools.DEBUG_LEVEL_DETAILED);
 
       if (srcDict == null) {
         return Serialize(srcDict);
@@ -95,7 +95,7 @@ namespace PlayPhone.MultiNet.Core
     }
 
     public object Deserialize (string srcJsonStr,Type targetType) {
-      MNTools.DetailedLog(string.Format("Deserialize from {1} to {0})",MNTools.SafeToString(targetType),MNTools.SafeToString(srcJsonStr)));
+      MNTools.DLog(string.Format("Deserialize from {1} to {0})",MNTools.SafeToString(targetType),MNTools.SafeToString(srcJsonStr)),MNTools.DEBUG_LEVEL_DETAILED);
 
       if ((srcJsonStr == null) || (srcJsonStr.Length == 0)) {
         throw new MNDeserializationException(srcJsonStr,targetType);
@@ -156,7 +156,7 @@ namespace PlayPhone.MultiNet.Core
     }
 
     public List<object> DeserializeArray(string srcJsonStr,Type elementType) {
-      MNTools.DetailedLog(string.Format("DeserializeArray from {1} to {0}",MNTools.SafeToString(elementType),MNTools.SafeToString(srcJsonStr)));
+      MNTools.DLog(string.Format("DeserializeArray from {1} to {0}",MNTools.SafeToString(elementType),MNTools.SafeToString(srcJsonStr)),MNTools.DEBUG_LEVEL_DETAILED);
 
       List<object> deserializedList = (List<object>)MiniJSON.Json.Deserialize(srcJsonStr);
 
@@ -166,7 +166,7 @@ namespace PlayPhone.MultiNet.Core
     }
 
     public IDictionary DeserializeDictionary (string str) {
-      MNTools.DetailedLog(String.Format("DeserializeDictionary from {0}",MNTools.SafeToString(str)));
+      MNTools.DLog(String.Format("DeserializeDictionary from {0}",MNTools.SafeToString(str)),MNTools.DEBUG_LEVEL_DETAILED);
 
       IDictionary result = new Hashtable();
 
@@ -195,7 +195,7 @@ namespace PlayPhone.MultiNet.Core
     }
 
     protected List<object> DeserializedListToTypedList(List<object> deserializedList,Type elementType) {
-      MNTools.DetailedLog("DeserializedListToTypedList. Elements type: " + MNTools.SafeToString(elementType));
+      MNTools.DLog("DeserializedListToTypedList. Elements type: " + MNTools.SafeToString(elementType),MNTools.DEBUG_LEVEL_DETAILED);
 
       List<object> result = new List<object>(deserializedList.Count);
 

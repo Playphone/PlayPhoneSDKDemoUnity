@@ -258,7 +258,7 @@ namespace PlayPhone.MultiNet.Providers
       if (ScoresUpdatedStorage != null) {
         List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
 
-        MNTools.DetailedLogList("MNUM_onScoresUpdated params",paramsArray);
+        MNTools.DLogList("MNUM_onScoresUpdated params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         List<object> param1List = MNSerializerMapper.ListOfObjectsFromListOfDictionaries((List<object>)paramsArray[0],typeof(MNScoreProgressProvider.ScoreItem));
         MNScoreProgressProvider.ScoreItem[] param1Array = new MNScoreProgressProvider.ScoreItem[param1List.Count];
