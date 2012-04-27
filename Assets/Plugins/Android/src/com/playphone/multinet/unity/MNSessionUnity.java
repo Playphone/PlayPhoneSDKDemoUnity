@@ -6,38 +6,20 @@ import com.playphone.multinet.core.MNBuddyRoomParams;
 import com.playphone.multinet.core.MNJoinRoomInvitationParams;
 
 public class MNSessionUnity {
-    public static String getMyUserInfo() {
+    public static boolean loginAuto() {
         MNUnity.MARK();
 
-        return MNUnity.serializer.serialize(MNDirect.getSession().getMyUserInfo());
+        return MNDirect.getSession().loginAuto();
     }
 
-    public static void reqJoinRandomRoom(final String gameSetId) {
+    public static void logout() {
         MNUnity.MARK();
 
         UnityPlayer.currentActivity.runOnUiThread(new Runnable()
         {
             public void run()
             {
-                MNDirect.getSession().reqJoinRandomRoom(gameSetId);
-            }
-        });
-    }
-
-    public static String getMyUserName() {
-        MNUnity.MARK();
-
-        return MNDirect.getSession().getMyUserName();
-    }
-
-    public static void execUICommand(final String name, final String param) {
-        MNUnity.MARK();
-
-        UnityPlayer.currentActivity.runOnUiThread(new Runnable()
-        {
-            public void run()
-            {
-                MNDirect.getSession().execUICommand(name, param);
+                MNDirect.getSession().logout();
             }
         });
     }
@@ -48,22 +30,22 @@ public class MNSessionUnity {
         return MNDirect.getSession().getStatus();
     }
 
-    public static boolean isInGameRoom() {
+    public static String getMyUserName() {
         MNUnity.MARK();
 
-        return MNDirect.getSession().isInGameRoom();
+        return MNDirect.getSession().getMyUserName();
     }
 
-    public static void leaveRoom() {
+    public static String getMyUserInfo() {
         MNUnity.MARK();
 
-        UnityPlayer.currentActivity.runOnUiThread(new Runnable()
-        {
-            public void run()
-            {
-                MNDirect.getSession().leaveRoom();
-            }
-        });
+        return MNUnity.serializer.serialize(MNDirect.getSession().getMyUserInfo());
+    }
+
+    public static String getRoomUserList() {
+        MNUnity.MARK();
+
+        return MNUnity.serializer.serialize(MNDirect.getSession().getRoomUserList());
     }
 
     public static int getRoomUserStatus() {
@@ -78,16 +60,10 @@ public class MNSessionUnity {
         return MNDirect.getSession().getCurrentRoomId();
     }
 
-    public static void reqCreateBuddyRoom(final String buddyRoomParams) {
+    public static int getRoomGameSetId() {
         MNUnity.MARK();
 
-        UnityPlayer.currentActivity.runOnUiThread(new Runnable()
-        {
-            public void run()
-            {
-                MNDirect.getSession().reqCreateBuddyRoom(MNUnity.serializer.deserialize(buddyRoomParams,MNBuddyRoomParams.class));
-            }
-        });
+        return MNDirect.getSession().getRoomGameSetId();
     }
 
     public static void reqJoinBuddyRoom(final int roomSFId) {
@@ -115,16 +91,70 @@ public class MNSessionUnity {
         });
     }
 
-    public static boolean loginAuto() {
+    public static void reqJoinRandomRoom(final String gameSetId) {
         MNUnity.MARK();
 
-        return MNDirect.getSession().loginAuto();
+        UnityPlayer.currentActivity.runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                MNDirect.getSession().reqJoinRandomRoom(gameSetId);
+            }
+        });
     }
 
-    public static String getRoomUserList() {
+    public static void reqCreateBuddyRoom(final String buddyRoomParams) {
         MNUnity.MARK();
 
-        return MNUnity.serializer.serialize(MNDirect.getSession().getRoomUserList());
+        UnityPlayer.currentActivity.runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                MNDirect.getSession().reqCreateBuddyRoom(MNUnity.serializer.deserialize(buddyRoomParams,MNBuddyRoomParams.class));
+            }
+        });
+    }
+
+    public static void reqSetUserStatus(final int userStatus) {
+        MNUnity.MARK();
+
+        UnityPlayer.currentActivity.runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                MNDirect.getSession().reqSetUserStatus(userStatus);
+            }
+        });
+    }
+
+    public static void leaveRoom() {
+        MNUnity.MARK();
+
+        UnityPlayer.currentActivity.runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                MNDirect.getSession().leaveRoom();
+            }
+        });
+    }
+
+    public static void execUICommand(final String name, final String param) {
+        MNUnity.MARK();
+
+        UnityPlayer.currentActivity.runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                MNDirect.getSession().execUICommand(name, param);
+            }
+        });
+    }
+
+    public static boolean isInGameRoom() {
+        MNUnity.MARK();
+
+        return MNDirect.getSession().isInGameRoom();
     }
 
     protected static class MNSessionEventHandler extends com.playphone.multinet.core.MNSessionEventHandlerAbstract {

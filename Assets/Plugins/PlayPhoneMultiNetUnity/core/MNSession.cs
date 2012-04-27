@@ -293,44 +293,22 @@ namespace PlayPhone.MultiNet.Core
 
     #if UNITY_IPHONE
 
-    public MNUserInfo GetMyUserInfo() {
-      MNTools.DLog("MNSession:GetMyUserInfo");
+    public bool LoginAuto() {
+      MNTools.DLog("MNSession:LoginAuto");
 
       if (Application.platform == RuntimePlatform.IPhonePlayer) {
-        return (MNUserInfo)MNUnityCommunicator.Serializer.Deserialize(_MNSession_GetMyUserInfo(),typeof(MNUserInfo));
+        return _MNSession_LoginAuto();
       }
       else {
         throw new MNNotOnDeviceExcepton();
       }
     }
 
-    public void ReqJoinRandomRoom(string gameSetId) {
-      MNTools.DLog("MNSession:ReqJoinRandomRoom");
+    public void Logout() {
+      MNTools.DLog("MNSession:Logout");
 
       if (Application.platform == RuntimePlatform.IPhonePlayer) {
-        _MNSession_ReqJoinRandomRoom(gameSetId);
-      }
-      else {
-        throw new MNNotOnDeviceExcepton();
-      }
-    }
-
-    public string GetMyUserName() {
-      MNTools.DLog("MNSession:GetMyUserName");
-
-      if (Application.platform == RuntimePlatform.IPhonePlayer) {
-        return _MNSession_GetMyUserName();
-      }
-      else {
-        throw new MNNotOnDeviceExcepton();
-      }
-    }
-
-    public void ExecUICommand(string name, string param) {
-      MNTools.DLog("MNSession:ExecUICommand");
-
-      if (Application.platform == RuntimePlatform.IPhonePlayer) {
-        _MNSession_ExecUICommand(name, param);
+        _MNSession_Logout();
       }
       else {
         throw new MNNotOnDeviceExcepton();
@@ -348,22 +326,43 @@ namespace PlayPhone.MultiNet.Core
       }
     }
 
-    public bool IsInGameRoom() {
-      MNTools.DLog("MNSession:IsInGameRoom");
+    public string GetMyUserName() {
+      MNTools.DLog("MNSession:GetMyUserName");
 
       if (Application.platform == RuntimePlatform.IPhonePlayer) {
-        return _MNSession_IsInGameRoom();
+        return _MNSession_GetMyUserName();
       }
       else {
         throw new MNNotOnDeviceExcepton();
       }
     }
 
-    public void LeaveRoom() {
-      MNTools.DLog("MNSession:LeaveRoom");
+    public MNUserInfo GetMyUserInfo() {
+      MNTools.DLog("MNSession:GetMyUserInfo");
 
       if (Application.platform == RuntimePlatform.IPhonePlayer) {
-        _MNSession_LeaveRoom();
+        return (MNUserInfo)MNUnityCommunicator.Serializer.Deserialize(_MNSession_GetMyUserInfo(),typeof(MNUserInfo));
+      }
+      else {
+        throw new MNNotOnDeviceExcepton();
+      }
+    }
+
+    public MNUserInfo[] GetRoomUserList() {
+      MNTools.DLog("MNSession:GetRoomUserList");
+
+      if (Application.platform == RuntimePlatform.IPhonePlayer) {
+        List<object> deserializedArray = MNUnityCommunicator.Serializer.DeserializeArray(
+          _MNSession_GetRoomUserList(),
+          typeof(MNUserInfo));
+
+        MNUserInfo[] resultArray = new MNUserInfo[deserializedArray.Count];
+
+        for (int index = 0;index < deserializedArray.Count;index++) {
+          resultArray[index] = (MNUserInfo)(deserializedArray[index]);
+        }
+
+        return resultArray;
       }
       else {
         throw new MNNotOnDeviceExcepton();
@@ -392,11 +391,11 @@ namespace PlayPhone.MultiNet.Core
       }
     }
 
-    public void ReqCreateBuddyRoom(MNBuddyRoomParams buddyRoomParams) {
-      MNTools.DLog("MNSession:ReqCreateBuddyRoom");
+    public int GetRoomGameSetId() {
+      MNTools.DLog("MNSession:GetRoomGameSetId");
 
       if (Application.platform == RuntimePlatform.IPhonePlayer) {
-        _MNSession_ReqCreateBuddyRoom(MNUnityCommunicator.Serializer.Serialize(buddyRoomParams));
+        return _MNSession_GetRoomGameSetId();
       }
       else {
         throw new MNNotOnDeviceExcepton();
@@ -425,32 +424,66 @@ namespace PlayPhone.MultiNet.Core
       }
     }
 
-    public bool LoginAuto() {
-      MNTools.DLog("MNSession:LoginAuto");
+    public void ReqJoinRandomRoom(string gameSetId) {
+      MNTools.DLog("MNSession:ReqJoinRandomRoom");
 
       if (Application.platform == RuntimePlatform.IPhonePlayer) {
-        return _MNSession_LoginAuto();
+        _MNSession_ReqJoinRandomRoom(gameSetId);
       }
       else {
         throw new MNNotOnDeviceExcepton();
       }
     }
 
-    public MNUserInfo[] GetRoomUserList() {
-      MNTools.DLog("MNSession:GetRoomUserList");
+    public void ReqCreateBuddyRoom(MNBuddyRoomParams buddyRoomParams) {
+      MNTools.DLog("MNSession:ReqCreateBuddyRoom");
 
       if (Application.platform == RuntimePlatform.IPhonePlayer) {
-        List<object> deserializedArray = MNUnityCommunicator.Serializer.DeserializeArray(
-          _MNSession_GetRoomUserList(),
-          typeof(MNUserInfo));
+        _MNSession_ReqCreateBuddyRoom(MNUnityCommunicator.Serializer.Serialize(buddyRoomParams));
+      }
+      else {
+        throw new MNNotOnDeviceExcepton();
+      }
+    }
 
-        MNUserInfo[] resultArray = new MNUserInfo[deserializedArray.Count];
+    public void ReqSetUserStatus(int userStatus) {
+      MNTools.DLog("MNSession:ReqSetUserStatus");
 
-        for (int index = 0;index < deserializedArray.Count;index++) {
-          resultArray[index] = (MNUserInfo)(deserializedArray[index]);
-        }
+      if (Application.platform == RuntimePlatform.IPhonePlayer) {
+        _MNSession_ReqSetUserStatus(userStatus);
+      }
+      else {
+        throw new MNNotOnDeviceExcepton();
+      }
+    }
 
-        return resultArray;
+    public void LeaveRoom() {
+      MNTools.DLog("MNSession:LeaveRoom");
+
+      if (Application.platform == RuntimePlatform.IPhonePlayer) {
+        _MNSession_LeaveRoom();
+      }
+      else {
+        throw new MNNotOnDeviceExcepton();
+      }
+    }
+
+    public void ExecUICommand(string name, string param) {
+      MNTools.DLog("MNSession:ExecUICommand");
+
+      if (Application.platform == RuntimePlatform.IPhonePlayer) {
+        _MNSession_ExecUICommand(name, param);
+      }
+      else {
+        throw new MNNotOnDeviceExcepton();
+      }
+    }
+
+    public bool IsInGameRoom() {
+      MNTools.DLog("MNSession:IsInGameRoom");
+
+      if (Application.platform == RuntimePlatform.IPhonePlayer) {
+        return _MNSession_IsInGameRoom();
       }
       else {
         throw new MNNotOnDeviceExcepton();
@@ -492,44 +525,22 @@ namespace PlayPhone.MultiNet.Core
 
     #elif UNITY_ANDROID
 
-    public MNUserInfo GetMyUserInfo() {
-      MNTools.DLog("MNSession:GetMyUserInfo");
+    public bool LoginAuto() {
+      MNTools.DLog("MNSession:LoginAuto");
 
       if (Application.platform == RuntimePlatform.Android) {
-        return (MNUserInfo)MNUnityCommunicator.Serializer.Deserialize(MNSessionUnityClass.CallStatic<string>("getMyUserInfo"),typeof(MNUserInfo));
+        return MNSessionUnityClass.CallStatic<bool>("loginAuto");
       }
       else {
         throw new MNNotOnDeviceExcepton();
       }
     }
 
-    public void ReqJoinRandomRoom(string gameSetId) {
-      MNTools.DLog("MNSession:ReqJoinRandomRoom");
+    public void Logout() {
+      MNTools.DLog("MNSession:Logout");
 
       if (Application.platform == RuntimePlatform.Android) {
-        MNSessionUnityClass.CallStatic("reqJoinRandomRoom",gameSetId);
-      }
-      else {
-        throw new MNNotOnDeviceExcepton();
-      }
-    }
-
-    public string GetMyUserName() {
-      MNTools.DLog("MNSession:GetMyUserName");
-
-      if (Application.platform == RuntimePlatform.Android) {
-        return MNSessionUnityClass.CallStatic<string>("getMyUserName");
-      }
-      else {
-        throw new MNNotOnDeviceExcepton();
-      }
-    }
-
-    public void ExecUICommand(string name, string param) {
-      MNTools.DLog("MNSession:ExecUICommand");
-
-      if (Application.platform == RuntimePlatform.Android) {
-        MNSessionUnityClass.CallStatic("execUICommand",name, param);
+        MNSessionUnityClass.CallStatic("logout");
       }
       else {
         throw new MNNotOnDeviceExcepton();
@@ -547,22 +558,43 @@ namespace PlayPhone.MultiNet.Core
       }
     }
 
-    public bool IsInGameRoom() {
-      MNTools.DLog("MNSession:IsInGameRoom");
+    public string GetMyUserName() {
+      MNTools.DLog("MNSession:GetMyUserName");
 
       if (Application.platform == RuntimePlatform.Android) {
-        return MNSessionUnityClass.CallStatic<bool>("isInGameRoom");
+        return MNSessionUnityClass.CallStatic<string>("getMyUserName");
       }
       else {
         throw new MNNotOnDeviceExcepton();
       }
     }
 
-    public void LeaveRoom() {
-      MNTools.DLog("MNSession:LeaveRoom");
+    public MNUserInfo GetMyUserInfo() {
+      MNTools.DLog("MNSession:GetMyUserInfo");
 
       if (Application.platform == RuntimePlatform.Android) {
-        MNSessionUnityClass.CallStatic("leaveRoom");
+        return (MNUserInfo)MNUnityCommunicator.Serializer.Deserialize(MNSessionUnityClass.CallStatic<string>("getMyUserInfo"),typeof(MNUserInfo));
+      }
+      else {
+        throw new MNNotOnDeviceExcepton();
+      }
+    }
+
+    public MNUserInfo[] GetRoomUserList() {
+      MNTools.DLog("MNSession:GetRoomUserList");
+
+      if (Application.platform == RuntimePlatform.Android) {
+        List<object> deserializedArray = MNUnityCommunicator.Serializer.DeserializeArray(
+          MNSessionUnityClass.CallStatic<string>("getRoomUserList"),
+          typeof(MNUserInfo));
+
+        MNUserInfo[] resultArray = new MNUserInfo[deserializedArray.Count];
+
+        for (int index = 0;index < deserializedArray.Count;index++) {
+          resultArray[index] = (MNUserInfo)(deserializedArray[index]);
+        }
+
+        return resultArray;
       }
       else {
         throw new MNNotOnDeviceExcepton();
@@ -591,11 +623,11 @@ namespace PlayPhone.MultiNet.Core
       }
     }
 
-    public void ReqCreateBuddyRoom(MNBuddyRoomParams buddyRoomParams) {
-      MNTools.DLog("MNSession:ReqCreateBuddyRoom");
+    public int GetRoomGameSetId() {
+      MNTools.DLog("MNSession:GetRoomGameSetId");
 
       if (Application.platform == RuntimePlatform.Android) {
-        MNSessionUnityClass.CallStatic("reqCreateBuddyRoom",MNUnityCommunicator.Serializer.Serialize(buddyRoomParams));
+        return MNSessionUnityClass.CallStatic<int>("getRoomGameSetId");
       }
       else {
         throw new MNNotOnDeviceExcepton();
@@ -624,32 +656,66 @@ namespace PlayPhone.MultiNet.Core
       }
     }
 
-    public bool LoginAuto() {
-      MNTools.DLog("MNSession:LoginAuto");
+    public void ReqJoinRandomRoom(string gameSetId) {
+      MNTools.DLog("MNSession:ReqJoinRandomRoom");
 
       if (Application.platform == RuntimePlatform.Android) {
-        return MNSessionUnityClass.CallStatic<bool>("loginAuto");
+        MNSessionUnityClass.CallStatic("reqJoinRandomRoom",gameSetId);
       }
       else {
         throw new MNNotOnDeviceExcepton();
       }
     }
 
-    public MNUserInfo[] GetRoomUserList() {
-      MNTools.DLog("MNSession:GetRoomUserList");
+    public void ReqCreateBuddyRoom(MNBuddyRoomParams buddyRoomParams) {
+      MNTools.DLog("MNSession:ReqCreateBuddyRoom");
 
       if (Application.platform == RuntimePlatform.Android) {
-        List<object> deserializedArray = MNUnityCommunicator.Serializer.DeserializeArray(
-          MNSessionUnityClass.CallStatic<string>("getRoomUserList"),
-          typeof(MNUserInfo));
+        MNSessionUnityClass.CallStatic("reqCreateBuddyRoom",MNUnityCommunicator.Serializer.Serialize(buddyRoomParams));
+      }
+      else {
+        throw new MNNotOnDeviceExcepton();
+      }
+    }
 
-        MNUserInfo[] resultArray = new MNUserInfo[deserializedArray.Count];
+    public void ReqSetUserStatus(int userStatus) {
+      MNTools.DLog("MNSession:ReqSetUserStatus");
 
-        for (int index = 0;index < deserializedArray.Count;index++) {
-          resultArray[index] = (MNUserInfo)(deserializedArray[index]);
-        }
+      if (Application.platform == RuntimePlatform.Android) {
+        MNSessionUnityClass.CallStatic("reqSetUserStatus",userStatus);
+      }
+      else {
+        throw new MNNotOnDeviceExcepton();
+      }
+    }
 
-        return resultArray;
+    public void LeaveRoom() {
+      MNTools.DLog("MNSession:LeaveRoom");
+
+      if (Application.platform == RuntimePlatform.Android) {
+        MNSessionUnityClass.CallStatic("leaveRoom");
+      }
+      else {
+        throw new MNNotOnDeviceExcepton();
+      }
+    }
+
+    public void ExecUICommand(string name, string param) {
+      MNTools.DLog("MNSession:ExecUICommand");
+
+      if (Application.platform == RuntimePlatform.Android) {
+        MNSessionUnityClass.CallStatic("execUICommand",name, param);
+      }
+      else {
+        throw new MNNotOnDeviceExcepton();
+      }
+    }
+
+    public bool IsInGameRoom() {
+      MNTools.DLog("MNSession:IsInGameRoom");
+
+      if (Application.platform == RuntimePlatform.Android) {
+        return MNSessionUnityClass.CallStatic<bool>("isInGameRoom");
       }
       else {
         throw new MNNotOnDeviceExcepton();
@@ -805,25 +871,22 @@ namespace PlayPhone.MultiNet.Core
     #if UNITY_IPHONE
 
     [DllImport ("__Internal")]
-    private static extern string _MNSession_GetMyUserInfo ();
+    private static extern bool _MNSession_LoginAuto ();
 
     [DllImport ("__Internal")]
-    private static extern void _MNSession_ReqJoinRandomRoom (string gameSetId);
-
-    [DllImport ("__Internal")]
-    private static extern string _MNSession_GetMyUserName ();
-
-    [DllImport ("__Internal")]
-    private static extern void _MNSession_ExecUICommand (string name, string param);
+    private static extern void _MNSession_Logout ();
 
     [DllImport ("__Internal")]
     private static extern int _MNSession_GetStatus ();
 
     [DllImport ("__Internal")]
-    private static extern bool _MNSession_IsInGameRoom ();
+    private static extern string _MNSession_GetMyUserName ();
 
     [DllImport ("__Internal")]
-    private static extern void _MNSession_LeaveRoom ();
+    private static extern string _MNSession_GetMyUserInfo ();
+
+    [DllImport ("__Internal")]
+    private static extern string _MNSession_GetRoomUserList ();
 
     [DllImport ("__Internal")]
     private static extern int _MNSession_GetRoomUserStatus ();
@@ -832,7 +895,7 @@ namespace PlayPhone.MultiNet.Core
     private static extern int _MNSession_GetCurrentRoomId ();
 
     [DllImport ("__Internal")]
-    private static extern void _MNSession_ReqCreateBuddyRoom (string buddyRoomParams);
+    private static extern int _MNSession_GetRoomGameSetId ();
 
     [DllImport ("__Internal")]
     private static extern void _MNSession_ReqJoinBuddyRoom (int roomSFId);
@@ -841,10 +904,22 @@ namespace PlayPhone.MultiNet.Core
     private static extern void _MNSession_SendJoinRoomInvitationResponse (string invitationParams, bool accept);
 
     [DllImport ("__Internal")]
-    private static extern bool _MNSession_LoginAuto ();
+    private static extern void _MNSession_ReqJoinRandomRoom (string gameSetId);
 
     [DllImport ("__Internal")]
-    private static extern string _MNSession_GetRoomUserList ();
+    private static extern void _MNSession_ReqCreateBuddyRoom (string buddyRoomParams);
+
+    [DllImport ("__Internal")]
+    private static extern void _MNSession_ReqSetUserStatus (int userStatus);
+
+    [DllImport ("__Internal")]
+    private static extern void _MNSession_LeaveRoom ();
+
+    [DllImport ("__Internal")]
+    private static extern void _MNSession_ExecUICommand (string name, string param);
+
+    [DllImport ("__Internal")]
+    private static extern bool _MNSession_IsInGameRoom ();
 
     [DllImport ("__Internal")]
     private static extern bool _MNSession_RegisterEventHandler ();

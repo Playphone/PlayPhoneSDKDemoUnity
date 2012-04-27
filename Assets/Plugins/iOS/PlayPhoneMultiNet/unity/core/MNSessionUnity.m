@@ -65,31 +65,17 @@ static MNSessionUnity *MNSessionUnityInstance = nil;
 @end
 
 EXTERN_C
-const char* _MNSession_GetMyUserInfo() {
+bool _MNSession_LoginAuto() {
     MARK;
 
-    return MakeStringCopy([[[MNUnity serializer]serialize:[[MNDirect getSession] getMyUserInfo]] UTF8String]);
+    return [[MNDirect getSession] loginAuto];
 }
 
 EXTERN_C
-void _MNSession_ReqJoinRandomRoom(const char* gameSetId) {
+void _MNSession_Logout() {
     MARK;
 
-    [[MNDirect getSession] reqJoinRandomRoom:NSStringWithUTFStringSafe(gameSetId)];
-}
-
-EXTERN_C
-const char* _MNSession_GetMyUserName() {
-    MARK;
-
-    return MakeStringCopy([[[MNDirect getSession] getMyUserName] UTF8String]);
-}
-
-EXTERN_C
-void _MNSession_ExecUICommand(const char* name, const char* param) {
-    MARK;
-
-    [[MNDirect getSession] execUICommand:NSStringWithUTFStringSafe(name) withParam:NSStringWithUTFStringSafe(param)];
+    [[MNDirect getSession] logout];
 }
 
 EXTERN_C
@@ -100,17 +86,24 @@ int _MNSession_GetStatus() {
 }
 
 EXTERN_C
-bool _MNSession_IsInGameRoom() {
+const char* _MNSession_GetMyUserName() {
     MARK;
 
-    return [[MNDirect getSession] isInGameRoom];
+    return MakeStringCopy([[[MNDirect getSession] getMyUserName] UTF8String]);
 }
 
 EXTERN_C
-void _MNSession_LeaveRoom() {
+const char* _MNSession_GetMyUserInfo() {
     MARK;
 
-    [[MNDirect getSession] leaveRoom];
+    return MakeStringCopy([[[MNUnity serializer]serialize:[[MNDirect getSession] getMyUserInfo]] UTF8String]);
+}
+
+EXTERN_C
+const char* _MNSession_GetRoomUserList() {
+    MARK;
+
+    return MakeStringCopy([[[MNUnity serializer]serialize:[[MNDirect getSession] getRoomUserList]] UTF8String]);
 }
 
 EXTERN_C
@@ -128,10 +121,10 @@ int _MNSession_GetCurrentRoomId() {
 }
 
 EXTERN_C
-void _MNSession_ReqCreateBuddyRoom(const char* buddyRoomParams) {
+int _MNSession_GetRoomGameSetId() {
     MARK;
 
-    [[MNDirect getSession] reqCreateBuddyRoom:[[MNUnity serializer] deserialize:[MNBuddyRoomParams class] fromJson:[NSString stringWithUTF8String:buddyRoomParams]]];
+    return [[MNDirect getSession] getRoomGameSetId];
 }
 
 EXTERN_C
@@ -149,17 +142,45 @@ void _MNSession_SendJoinRoomInvitationResponse(const char* invitationParams, boo
 }
 
 EXTERN_C
-bool _MNSession_LoginAuto() {
+void _MNSession_ReqJoinRandomRoom(const char* gameSetId) {
     MARK;
 
-    return [[MNDirect getSession] loginAuto];
+    [[MNDirect getSession] reqJoinRandomRoom:NSStringWithUTFStringSafe(gameSetId)];
 }
 
 EXTERN_C
-const char* _MNSession_GetRoomUserList() {
+void _MNSession_ReqCreateBuddyRoom(const char* buddyRoomParams) {
     MARK;
 
-    return MakeStringCopy([[[MNUnity serializer]serialize:[[MNDirect getSession] getRoomUserList]] UTF8String]);
+    [[MNDirect getSession] reqCreateBuddyRoom:[[MNUnity serializer] deserialize:[MNBuddyRoomParams class] fromJson:[NSString stringWithUTF8String:buddyRoomParams]]];
+}
+
+EXTERN_C
+void _MNSession_ReqSetUserStatus(int userStatus) {
+    MARK;
+
+    [[MNDirect getSession] reqSetUserStatus:userStatus];
+}
+
+EXTERN_C
+void _MNSession_LeaveRoom() {
+    MARK;
+
+    [[MNDirect getSession] leaveRoom];
+}
+
+EXTERN_C
+void _MNSession_ExecUICommand(const char* name, const char* param) {
+    MARK;
+
+    [[MNDirect getSession] execUICommand:NSStringWithUTFStringSafe(name) withParam:NSStringWithUTFStringSafe(param)];
+}
+
+EXTERN_C
+bool _MNSession_IsInGameRoom() {
+    MARK;
+
+    return [[MNDirect getSession] isInGameRoom];
 }
 
 EXTERN_C
