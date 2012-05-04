@@ -79,6 +79,96 @@ namespace PlayPhone.MultiNet.Core
     }
     private UserChangedEventHandler UserChangedStorage;
 
+    public delegate void RoomUserStatusChangedEventHandler(int userStatus);
+    public event RoomUserStatusChangedEventHandler RoomUserStatusChanged
+    {
+      [MethodImpl(MethodImplOptions.Synchronized)]
+      add
+      {
+        MNTools.DLog("RoomUserStatusChangedEventHandler.add");
+        if (RoomUserStatusChangedStorage == null) {
+          RoomUserStatusChangedStorage += value;
+
+          RegisterEventHandler();
+        }
+        else {
+          RoomUserStatusChangedStorage += value;
+        }
+      }
+
+      [MethodImpl(MethodImplOptions.Synchronized)]
+      remove
+      {
+        MNTools.DLog("RoomUserStatusChangedEventHandler.remove");
+        RoomUserStatusChangedStorage -= value;
+
+        if (RoomUserStatusChangedStorage == null) {
+          UnregisterEventHandler();
+        }
+      }
+    }
+    private RoomUserStatusChangedEventHandler RoomUserStatusChangedStorage;
+
+    public delegate void JoinRoomInvitationReceivedEventHandler(MNJoinRoomInvitationParams _params);
+    public event JoinRoomInvitationReceivedEventHandler JoinRoomInvitationReceived
+    {
+      [MethodImpl(MethodImplOptions.Synchronized)]
+      add
+      {
+        MNTools.DLog("JoinRoomInvitationReceivedEventHandler.add");
+        if (JoinRoomInvitationReceivedStorage == null) {
+          JoinRoomInvitationReceivedStorage += value;
+
+          RegisterEventHandler();
+        }
+        else {
+          JoinRoomInvitationReceivedStorage += value;
+        }
+      }
+
+      [MethodImpl(MethodImplOptions.Synchronized)]
+      remove
+      {
+        MNTools.DLog("JoinRoomInvitationReceivedEventHandler.remove");
+        JoinRoomInvitationReceivedStorage -= value;
+
+        if (JoinRoomInvitationReceivedStorage == null) {
+          UnregisterEventHandler();
+        }
+      }
+    }
+    private JoinRoomInvitationReceivedEventHandler JoinRoomInvitationReceivedStorage;
+
+    public delegate void GameMessageReceivedEventHandler(string message, MNUserInfo sender);
+    public event GameMessageReceivedEventHandler GameMessageReceived
+    {
+      [MethodImpl(MethodImplOptions.Synchronized)]
+      add
+      {
+        MNTools.DLog("GameMessageReceivedEventHandler.add");
+        if (GameMessageReceivedStorage == null) {
+          GameMessageReceivedStorage += value;
+
+          RegisterEventHandler();
+        }
+        else {
+          GameMessageReceivedStorage += value;
+        }
+      }
+
+      [MethodImpl(MethodImplOptions.Synchronized)]
+      remove
+      {
+        MNTools.DLog("GameMessageReceivedEventHandler.remove");
+        GameMessageReceivedStorage -= value;
+
+        if (GameMessageReceivedStorage == null) {
+          UnregisterEventHandler();
+        }
+      }
+    }
+    private GameMessageReceivedEventHandler GameMessageReceivedStorage;
+
     public delegate void RoomUserJoinEventHandler(MNUserInfo userInfo);
     public event RoomUserJoinEventHandler RoomUserJoin
     {
@@ -138,36 +228,6 @@ namespace PlayPhone.MultiNet.Core
       }
     }
     private RoomUserLeaveEventHandler RoomUserLeaveStorage;
-
-    public delegate void GameMessageReceivedEventHandler(string message, MNUserInfo sender);
-    public event GameMessageReceivedEventHandler GameMessageReceived
-    {
-      [MethodImpl(MethodImplOptions.Synchronized)]
-      add
-      {
-        MNTools.DLog("GameMessageReceivedEventHandler.add");
-        if (GameMessageReceivedStorage == null) {
-          GameMessageReceivedStorage += value;
-
-          RegisterEventHandler();
-        }
-        else {
-          GameMessageReceivedStorage += value;
-        }
-      }
-
-      [MethodImpl(MethodImplOptions.Synchronized)]
-      remove
-      {
-        MNTools.DLog("GameMessageReceivedEventHandler.remove");
-        GameMessageReceivedStorage -= value;
-
-        if (GameMessageReceivedStorage == null) {
-          UnregisterEventHandler();
-        }
-      }
-    }
-    private GameMessageReceivedEventHandler GameMessageReceivedStorage;
 
     public delegate void ErrorOccurredEventHandler(MNErrorInfo errorInfo);
     public event ErrorOccurredEventHandler ErrorOccurred
@@ -258,36 +318,6 @@ namespace PlayPhone.MultiNet.Core
       }
     }
     private ExecUICommandReceivedEventHandler ExecUICommandReceivedStorage;
-
-    public delegate void JoinRoomInvitationReceivedEventHandler(MNJoinRoomInvitationParams _params);
-    public event JoinRoomInvitationReceivedEventHandler JoinRoomInvitationReceived
-    {
-      [MethodImpl(MethodImplOptions.Synchronized)]
-      add
-      {
-        MNTools.DLog("JoinRoomInvitationReceivedEventHandler.add");
-        if (JoinRoomInvitationReceivedStorage == null) {
-          JoinRoomInvitationReceivedStorage += value;
-
-          RegisterEventHandler();
-        }
-        else {
-          JoinRoomInvitationReceivedStorage += value;
-        }
-      }
-
-      [MethodImpl(MethodImplOptions.Synchronized)]
-      remove
-      {
-        MNTools.DLog("JoinRoomInvitationReceivedEventHandler.remove");
-        JoinRoomInvitationReceivedStorage -= value;
-
-        if (JoinRoomInvitationReceivedStorage == null) {
-          UnregisterEventHandler();
-        }
-      }
-    }
-    private JoinRoomInvitationReceivedEventHandler JoinRoomInvitationReceivedStorage;
 
     #endregion MNSessionEventHandler
 
@@ -782,6 +812,42 @@ namespace PlayPhone.MultiNet.Core
       }
     }
 
+    private void MNUM_mnSessionRoomUserStatusChanged(string messageParams) {
+      MNTools.DLog("MNSession:MNUM_mnSessionRoomUserStatusChanged: messageParams=<" + messageParams + ">");
+
+      if (RoomUserStatusChangedStorage != null) {
+        List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
+
+        MNTools.DLogList("MNUM_mnSessionRoomUserStatusChanged params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
+
+        RoomUserStatusChangedStorage(Convert.ToInt32(paramsArray[0]));
+      }
+    }
+
+    private void MNUM_mnSessionJoinRoomInvitationReceived(string messageParams) {
+      MNTools.DLog("MNSession:MNUM_mnSessionJoinRoomInvitationReceived: messageParams=<" + messageParams + ">");
+
+      if (JoinRoomInvitationReceivedStorage != null) {
+        List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
+
+        MNTools.DLogList("MNUM_mnSessionJoinRoomInvitationReceived params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
+
+        JoinRoomInvitationReceivedStorage(MNSerializerMapper.MNJoinRoomInvitationParamsFromDictionary((IDictionary)paramsArray[0]));
+      }
+    }
+
+    private void MNUM_mnSessionGameMessageReceived(string messageParams) {
+      MNTools.DLog("MNSession:MNUM_mnSessionGameMessageReceived: messageParams=<" + messageParams + ">");
+
+      if (GameMessageReceivedStorage != null) {
+        List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
+
+        MNTools.DLogList("MNUM_mnSessionGameMessageReceived params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
+
+        GameMessageReceivedStorage((string)paramsArray[0], MNSerializerMapper.MNUserInfoFromDictionary((IDictionary)paramsArray[1]));
+      }
+    }
+
     private void MNUM_mnSessionRoomUserJoin(string messageParams) {
       MNTools.DLog("MNSession:MNUM_mnSessionRoomUserJoin: messageParams=<" + messageParams + ">");
 
@@ -803,18 +869,6 @@ namespace PlayPhone.MultiNet.Core
         MNTools.DLogList("MNUM_mnSessionRoomUserLeave params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         RoomUserLeaveStorage(MNSerializerMapper.MNUserInfoFromDictionary((IDictionary)paramsArray[0]));
-      }
-    }
-
-    private void MNUM_mnSessionGameMessageReceived(string messageParams) {
-      MNTools.DLog("MNSession:MNUM_mnSessionGameMessageReceived: messageParams=<" + messageParams + ">");
-
-      if (GameMessageReceivedStorage != null) {
-        List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
-
-        MNTools.DLogList("MNUM_mnSessionGameMessageReceived params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
-
-        GameMessageReceivedStorage((string)paramsArray[0], MNSerializerMapper.MNUserInfoFromDictionary((IDictionary)paramsArray[1]));
       }
     }
 
@@ -851,18 +905,6 @@ namespace PlayPhone.MultiNet.Core
         MNTools.DLogList("MNUM_mnSessionExecUICommandReceived params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
 
         ExecUICommandReceivedStorage((string)paramsArray[0], (string)paramsArray[1]);
-      }
-    }
-
-    private void MNUM_mnSessionJoinRoomInvitationReceived(string messageParams) {
-      MNTools.DLog("MNSession:MNUM_mnSessionJoinRoomInvitationReceived: messageParams=<" + messageParams + ">");
-
-      if (JoinRoomInvitationReceivedStorage != null) {
-        List<object> paramsArray = (List<object>)MNUnityCommunicator.Serializer.Deserialize(messageParams,typeof(List<object>));
-
-        MNTools.DLogList("MNUM_mnSessionJoinRoomInvitationReceived params",paramsArray,MNTools.DEBUG_LEVEL_DETAILED);
-
-        JoinRoomInvitationReceivedStorage(MNSerializerMapper.MNJoinRoomInvitationParamsFromDictionary((IDictionary)paramsArray[0]));
       }
     }
 

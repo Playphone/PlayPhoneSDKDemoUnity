@@ -186,6 +186,45 @@ public class MNSessionUnity {
         }
 
         @Override
+        public void mnSessionRoomUserStatusChanged(final int userStatus) {
+            MNUnity.MARK();
+
+            UnityPlayer.currentActivity.runOnUiThread(new Runnable()
+            {
+                public void run()
+                {
+                  MNUnity.callUnityFunction("MNUM_mnSessionRoomUserStatusChanged",userStatus);
+                }
+            });
+        }
+
+        @Override
+        public void mnSessionJoinRoomInvitationReceived(final MNJoinRoomInvitationParams params) {
+            MNUnity.MARK();
+
+            UnityPlayer.currentActivity.runOnUiThread(new Runnable()
+            {
+                public void run()
+                {
+                  MNUnity.callUnityFunction("MNUM_mnSessionJoinRoomInvitationReceived",params);
+                }
+            });
+        }
+
+        @Override
+        public void mnSessionGameMessageReceived(final String message, final MNUserInfo sender) {
+            MNUnity.MARK();
+
+            UnityPlayer.currentActivity.runOnUiThread(new Runnable()
+            {
+                public void run()
+                {
+                  MNUnity.callUnityFunction("MNUM_mnSessionGameMessageReceived",message, sender);
+                }
+            });
+        }
+
+        @Override
         public void mnSessionRoomUserJoin(final MNUserInfo userInfo) {
             MNUnity.MARK();
 
@@ -207,19 +246,6 @@ public class MNSessionUnity {
                 public void run()
                 {
                   MNUnity.callUnityFunction("MNUM_mnSessionRoomUserLeave",userInfo);
-                }
-            });
-        }
-
-        @Override
-        public void mnSessionGameMessageReceived(final String message, final MNUserInfo sender) {
-            MNUnity.MARK();
-
-            UnityPlayer.currentActivity.runOnUiThread(new Runnable()
-            {
-                public void run()
-                {
-                  MNUnity.callUnityFunction("MNUM_mnSessionGameMessageReceived",message, sender);
                 }
             });
         }
@@ -259,19 +285,6 @@ public class MNSessionUnity {
                 public void run()
                 {
                   MNUnity.callUnityFunction("MNUM_mnSessionExecUICommandReceived",cmdName, cmdParam);
-                }
-            });
-        }
-
-        @Override
-        public void mnSessionJoinRoomInvitationReceived(final MNJoinRoomInvitationParams params) {
-            MNUnity.MARK();
-
-            UnityPlayer.currentActivity.runOnUiThread(new Runnable()
-            {
-                public void run()
-                {
-                  MNUnity.callUnityFunction("MNUM_mnSessionJoinRoomInvitationReceived",params);
                 }
             });
         }

@@ -14,13 +14,14 @@
 + (id)shared;
 - (void)mnSessionStatusChangedTo:(int)newStatus from:(int)oldStatus;
 - (void)mnSessionUserChangedTo:(long long)userId;
+- (void)mnSessionRoomUserStatusChangedTo:(int)userStatus;
+- (void)mnSessionJoinRoomInvitationReceived:(MNJoinRoomInvitationParams*)params;
+- (void)mnSessionGameMessageReceived:(NSString*)message from:(MNUserInfo*)sender;
 - (void)mnSessionRoomUserJoin:(MNUserInfo*)userInfo;
 - (void)mnSessionRoomUserLeave:(MNUserInfo*)userInfo;
-- (void)mnSessionGameMessageReceived:(NSString*)message from:(MNUserInfo*)sender;
 - (void)mnSessionErrorOccurred:(MNErrorInfo*)errorInfo;
 - (void)mnSessionExecAppCommandReceived:(NSString*)cmdName withParam:(NSString*)cmdParam;
 - (void)mnSessionExecUICommandReceived:(NSString*)cmdName withParam:(NSString*)cmdParam;
-- (void)mnSessionJoinRoomInvitationReceived:(MNJoinRoomInvitationParams*)params;
 @end
 
 static MNSessionUnity *MNSessionUnityInstance = nil;
@@ -41,14 +42,20 @@ static MNSessionUnity *MNSessionUnityInstance = nil;
 - (void)mnSessionUserChangedTo:(long long)userId {
     [MNUnity callUnityFunction:@"MNUM_mnSessionUserChanged" withParams:[NSNumber numberWithLongLong:userId], nil];
 }
+- (void)mnSessionRoomUserStatusChangedTo:(int)userStatus {
+    [MNUnity callUnityFunction:@"MNUM_mnSessionRoomUserStatusChanged" withParams:[NSNumber numberWithInt:userStatus], nil];
+}
+- (void)mnSessionJoinRoomInvitationReceived:(MNJoinRoomInvitationParams*)params {
+    [MNUnity callUnityFunction:@"MNUM_mnSessionJoinRoomInvitationReceived" withParams:(params == nil ? [NSNull null] : params), nil];
+}
+- (void)mnSessionGameMessageReceived:(NSString*)message from:(MNUserInfo*)sender {
+    [MNUnity callUnityFunction:@"MNUM_mnSessionGameMessageReceived" withParams:(message == nil ? [NSNull null] : message), (sender == nil ? [NSNull null] : sender), nil];
+}
 - (void)mnSessionRoomUserJoin:(MNUserInfo*)userInfo {
     [MNUnity callUnityFunction:@"MNUM_mnSessionRoomUserJoin" withParams:(userInfo == nil ? [NSNull null] : userInfo), nil];
 }
 - (void)mnSessionRoomUserLeave:(MNUserInfo*)userInfo {
     [MNUnity callUnityFunction:@"MNUM_mnSessionRoomUserLeave" withParams:(userInfo == nil ? [NSNull null] : userInfo), nil];
-}
-- (void)mnSessionGameMessageReceived:(NSString*)message from:(MNUserInfo*)sender {
-    [MNUnity callUnityFunction:@"MNUM_mnSessionGameMessageReceived" withParams:(message == nil ? [NSNull null] : message), (sender == nil ? [NSNull null] : sender), nil];
 }
 - (void)mnSessionErrorOccurred:(MNErrorInfo*)errorInfo {
     [MNUnity callUnityFunction:@"MNUM_mnSessionErrorOccurred" withParams:(errorInfo == nil ? [NSNull null] : errorInfo), nil];
@@ -58,9 +65,6 @@ static MNSessionUnity *MNSessionUnityInstance = nil;
 }
 - (void)mnSessionExecUICommandReceived:(NSString*)cmdName withParam:(NSString*)cmdParam {
     [MNUnity callUnityFunction:@"MNUM_mnSessionExecUICommandReceived" withParams:(cmdName == nil ? [NSNull null] : cmdName), (cmdParam == nil ? [NSNull null] : cmdParam), nil];
-}
-- (void)mnSessionJoinRoomInvitationReceived:(MNJoinRoomInvitationParams*)params {
-    [MNUnity callUnityFunction:@"MNUM_mnSessionJoinRoomInvitationReceived" withParams:(params == nil ? [NSNull null] : params), nil];
 }
 @end
 
