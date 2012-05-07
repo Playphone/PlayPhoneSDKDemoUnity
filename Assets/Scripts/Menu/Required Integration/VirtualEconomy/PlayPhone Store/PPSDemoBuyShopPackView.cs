@@ -10,8 +10,8 @@ public class PPSDemoBuyShopPackView : PPSDemoViewAbstract
   public PPSDemoBuyShopPackView()
   {
     viewName = "Buy Shop Pack";
-    MNDirect.GetVShopProvider().ShowDashboard += new MNVShopProvider.ShowDashboardEventHandler(OnShowDashboard);
-    MNDirect.GetVShopProvider().HideDashboard += new MNVShopProvider.HideDashboardEventHandler(OnHideDashboard);
+    //MNDirect.GetVShopProvider().ShowDashboard += new MNVShopProvider.ShowDashboardEventHandler(OnShowDashboard);
+    //MNDirect.GetVShopProvider().HideDashboard += new MNVShopProvider.HideDashboardEventHandler(OnHideDashboard);
     MNDirect.GetVShopProvider().CheckoutVShopPackSuccess += new MNVShopProvider.CheckoutVShopPackSuccessEventHandler(OnCheckoutVShopPackSuccess);
     MNDirect.GetVShopProvider().CheckoutVShopPackFail += new MNVShopProvider.CheckoutVShopPackFailEventHandler(OnCheckoutVShopPackFail);
   }
@@ -89,8 +89,8 @@ public class PPSDemoBuyShopPackView : PPSDemoViewAbstract
   {
     MNDirect.GetVShopProvider().CheckoutVShopPackSuccess -= new MNVShopProvider.CheckoutVShopPackSuccessEventHandler(OnCheckoutVShopPackSuccess);
     MNDirect.GetVShopProvider().CheckoutVShopPackFail -= new MNVShopProvider.CheckoutVShopPackFailEventHandler(OnCheckoutVShopPackFail);
-    MNDirect.GetVShopProvider().ShowDashboard -= new MNVShopProvider.ShowDashboardEventHandler(OnShowDashboard);
-    MNDirect.GetVShopProvider().HideDashboard -= new MNVShopProvider.HideDashboardEventHandler(OnHideDashboard);
+    //MNDirect.GetVShopProvider().ShowDashboard -= new MNVShopProvider.ShowDashboardEventHandler(OnShowDashboard);
+    //MNDirect.GetVShopProvider().HideDashboard -= new MNVShopProvider.HideDashboardEventHandler(OnHideDashboard);
   }
   
   private void OnCheckoutVShopPackSuccess(MNVShopProvider.CheckoutVShopPackSuccessInfo result) 
@@ -105,7 +105,7 @@ public class PPSDemoBuyShopPackView : PPSDemoViewAbstract
     buyFail = true;
     vShopPackFailInfo = result;
   }
-
+  /*
   private void OnShowDashboard() 
   {
     MNTools.DLog("MNDirectVShopProvider_OnShowDashboard");
@@ -117,7 +117,7 @@ public class PPSDemoBuyShopPackView : PPSDemoViewAbstract
     MNTools.DLog("MNDirectVShopProvider_OnHideDashboard");
     MNDirectUIHelper.HideDashboard();
   }
-
+  */
   protected bool buySuccess = false;
   protected bool buyFail = false;
   protected bool waitBuyRequest = false;
