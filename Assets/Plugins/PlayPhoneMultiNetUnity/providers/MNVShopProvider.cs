@@ -410,11 +410,11 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void RegisterEventHandler() {
-      MNTools.DLog("MNVShopProvider:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNVShopProvider:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.IPhonePlayer) {
         eventHandlerRegistered = _MNVShopProvider_RegisterEventHandler();
@@ -426,6 +426,10 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void UnregisterEventHandler() {
+      if ((VShopInfoUpdatedStorage != null) || (ShowDashboardStorage != null) || (HideDashboardStorage != null) || (CheckoutVShopPackSuccessStorage != null) || (CheckoutVShopPackFailStorage != null) || (VShopReadyStatusChangedStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNVShopProvider:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {
@@ -586,11 +590,11 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void RegisterEventHandler() {
-      MNTools.DLog("MNVShopProvider:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNVShopProvider:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.Android) {
         eventHandlerRegistered = MNVShopProviderUnityClass.CallStatic<bool>("registerEventHandler");
@@ -602,6 +606,10 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void UnregisterEventHandler() {
+      if ((VShopInfoUpdatedStorage != null) || (ShowDashboardStorage != null) || (HideDashboardStorage != null) || (CheckoutVShopPackSuccessStorage != null) || (CheckoutVShopPackFailStorage != null) || (VShopReadyStatusChangedStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNVShopProvider:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {

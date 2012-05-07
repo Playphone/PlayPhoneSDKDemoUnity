@@ -208,11 +208,11 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void RegisterEventHandler() {
-      MNTools.DLog("MNAchievementsProvider:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNAchievementsProvider:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.IPhonePlayer) {
         eventHandlerRegistered = _MNAchievementsProvider_RegisterEventHandler();
@@ -224,6 +224,10 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void UnregisterEventHandler() {
+      if ((GameAchievementListUpdatedStorage != null) || (PlayerAchievementUnlockedStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNAchievementsProvider:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {
@@ -351,11 +355,11 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void RegisterEventHandler() {
-      MNTools.DLog("MNAchievementsProvider:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNAchievementsProvider:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.Android) {
         eventHandlerRegistered = MNAchievementsProviderUnityClass.CallStatic<bool>("registerEventHandler");
@@ -367,6 +371,10 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void UnregisterEventHandler() {
+      if ((GameAchievementListUpdatedStorage != null) || (PlayerAchievementUnlockedStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNAchievementsProvider:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {

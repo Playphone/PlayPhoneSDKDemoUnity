@@ -154,11 +154,11 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void RegisterEventHandler() {
-      MNTools.DLog("MNGameRoomCookiesProvider:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNGameRoomCookiesProvider:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.IPhonePlayer) {
         eventHandlerRegistered = _MNGameRoomCookiesProvider_RegisterEventHandler();
@@ -170,6 +170,10 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void UnregisterEventHandler() {
+      if ((GameRoomCookieDownloadSucceededStorage != null) || (GameRoomCookieDownloadFailedWithErrorStorage != null) || (CurrentGameRoomCookieUpdatedStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNGameRoomCookiesProvider:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {
@@ -233,11 +237,11 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void RegisterEventHandler() {
-      MNTools.DLog("MNGameRoomCookiesProvider:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNGameRoomCookiesProvider:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.Android) {
         eventHandlerRegistered = MNGameRoomCookiesProviderUnityClass.CallStatic<bool>("registerEventHandler");
@@ -249,6 +253,10 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void UnregisterEventHandler() {
+      if ((GameRoomCookieDownloadSucceededStorage != null) || (GameRoomCookieDownloadFailedWithErrorStorage != null) || (CurrentGameRoomCookieUpdatedStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNGameRoomCookiesProvider:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {

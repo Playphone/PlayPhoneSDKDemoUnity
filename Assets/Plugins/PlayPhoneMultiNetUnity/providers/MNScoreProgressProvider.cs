@@ -127,11 +127,11 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void RegisterEventHandler() {
-      MNTools.DLog("MNScoreProgressProvider:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNScoreProgressProvider:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.IPhonePlayer) {
         eventHandlerRegistered = _MNScoreProgressProvider_RegisterEventHandler();
@@ -143,6 +143,10 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void UnregisterEventHandler() {
+      if ((ScoresUpdatedStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNScoreProgressProvider:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {
@@ -218,11 +222,11 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void RegisterEventHandler() {
-      MNTools.DLog("MNScoreProgressProvider:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNScoreProgressProvider:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.Android) {
         eventHandlerRegistered = MNScoreProgressProviderUnityClass.CallStatic<bool>("registerEventHandler");
@@ -234,6 +238,10 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void UnregisterEventHandler() {
+      if ((ScoresUpdatedStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNScoreProgressProvider:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {

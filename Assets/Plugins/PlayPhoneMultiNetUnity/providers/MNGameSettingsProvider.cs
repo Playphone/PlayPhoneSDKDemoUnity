@@ -127,11 +127,11 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void RegisterEventHandler() {
-      MNTools.DLog("MNGameSettingsProvider:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNGameSettingsProvider:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.IPhonePlayer) {
         eventHandlerRegistered = _MNGameSettingsProvider_RegisterEventHandler();
@@ -143,6 +143,10 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void UnregisterEventHandler() {
+      if ((GameSettingListUpdatedStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNGameSettingsProvider:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {
@@ -227,11 +231,11 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void RegisterEventHandler() {
-      MNTools.DLog("MNGameSettingsProvider:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNGameSettingsProvider:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.Android) {
         eventHandlerRegistered = MNGameSettingsProviderUnityClass.CallStatic<bool>("registerEventHandler");
@@ -243,6 +247,10 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void UnregisterEventHandler() {
+      if ((GameSettingListUpdatedStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNGameSettingsProvider:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {

@@ -104,11 +104,11 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void RegisterEventHandler() {
-      MNTools.DLog("MNServerInfoProvider:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNServerInfoProvider:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.IPhonePlayer) {
         eventHandlerRegistered = _MNServerInfoProvider_RegisterEventHandler();
@@ -120,6 +120,10 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void UnregisterEventHandler() {
+      if ((ServerInfoItemReceivedStorage != null) || (ServerInfoItemRequestFailedWithErrorStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNServerInfoProvider:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {
@@ -161,11 +165,11 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void RegisterEventHandler() {
-      MNTools.DLog("MNServerInfoProvider:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNServerInfoProvider:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.Android) {
         eventHandlerRegistered = MNServerInfoProviderUnityClass.CallStatic<bool>("registerEventHandler");
@@ -177,6 +181,10 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void UnregisterEventHandler() {
+      if ((ServerInfoItemReceivedStorage != null) || (ServerInfoItemRequestFailedWithErrorStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNServerInfoProvider:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {

@@ -146,11 +146,11 @@ namespace PlayPhone.MultiNet
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private static void RegisterEventHandler() {
-      MNTools.DLog("MNDirectUIHelper:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNDirectUIHelper:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.IPhonePlayer) {
         eventHandlerRegistered = _MNDirectUIHelper_RegisterEventHandler();
@@ -162,6 +162,10 @@ namespace PlayPhone.MultiNet
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private static void UnregisterEventHandler() {
+      if ((OnShowDashboardStorage != null) || (OnHideDashboardStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNDirectUIHelper:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {
@@ -258,11 +262,11 @@ namespace PlayPhone.MultiNet
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private static void RegisterEventHandler() {
-      MNTools.DLog("MNDirectUIHelper:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNDirectUIHelper:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.Android) {
         eventHandlerRegistered = MNDirectUIHelperUnityClass.CallStatic<bool>("registerEventHandler");
@@ -274,6 +278,10 @@ namespace PlayPhone.MultiNet
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private static void UnregisterEventHandler() {
+      if ((OnShowDashboardStorage != null) || (OnHideDashboardStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNDirectUIHelper:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {

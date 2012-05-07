@@ -327,11 +327,11 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void RegisterEventHandler() {
-      MNTools.DLog("MNVItemsProvider:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNVItemsProvider:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.IPhonePlayer) {
         eventHandlerRegistered = _MNVItemsProvider_RegisterEventHandler();
@@ -343,6 +343,10 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void UnregisterEventHandler() {
+      if ((VItemsListUpdatedStorage != null) || (VItemsTransactionCompletedStorage != null) || (VItemsTransactionFailedStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNVItemsProvider:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {
@@ -525,11 +529,11 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void RegisterEventHandler() {
-      MNTools.DLog("MNVItemsProvider:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNVItemsProvider:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.Android) {
         eventHandlerRegistered = MNVItemsProviderUnityClass.CallStatic<bool>("registerEventHandler");
@@ -541,6 +545,10 @@ namespace PlayPhone.MultiNet.Providers
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void UnregisterEventHandler() {
+      if ((VItemsListUpdatedStorage != null) || (VItemsTransactionCompletedStorage != null) || (VItemsTransactionFailedStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNVItemsProvider:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {

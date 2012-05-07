@@ -522,11 +522,11 @@ namespace PlayPhone.MultiNet.Core
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void RegisterEventHandler() {
-      MNTools.DLog("MNSession:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNSession:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.IPhonePlayer) {
         eventHandlerRegistered = _MNSession_RegisterEventHandler();
@@ -538,6 +538,10 @@ namespace PlayPhone.MultiNet.Core
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void UnregisterEventHandler() {
+      if ((SessionStatusChangedStorage != null) || (UserChangedStorage != null) || (RoomUserStatusChangedStorage != null) || (JoinRoomInvitationReceivedStorage != null) || (GameMessageReceivedStorage != null) || (RoomUserJoinStorage != null) || (RoomUserLeaveStorage != null) || (ErrorOccurredStorage != null) || (ExecAppCommandReceivedStorage != null) || (ExecUICommandReceivedStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNSession:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {
@@ -754,11 +758,11 @@ namespace PlayPhone.MultiNet.Core
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void RegisterEventHandler() {
-      MNTools.DLog("MNSession:RegisterEventHandler");
-
       if (eventHandlerRegistered) {
         return;
       }
+
+      MNTools.DLog("MNSession:RegisterEventHandler");
 
       if (Application.platform == RuntimePlatform.Android) {
         eventHandlerRegistered = MNSessionUnityClass.CallStatic<bool>("registerEventHandler");
@@ -770,6 +774,10 @@ namespace PlayPhone.MultiNet.Core
 
     [MethodImpl(MethodImplOptions.Synchronized)]
     private void UnregisterEventHandler() {
+      if ((SessionStatusChangedStorage != null) || (UserChangedStorage != null) || (RoomUserStatusChangedStorage != null) || (JoinRoomInvitationReceivedStorage != null) || (GameMessageReceivedStorage != null) || (RoomUserJoinStorage != null) || (RoomUserLeaveStorage != null) || (ErrorOccurredStorage != null) || (ExecAppCommandReceivedStorage != null) || (ExecUICommandReceivedStorage != null)) {
+        return;
+      }
+
       MNTools.DLog("MNSession:UnregisterEventHandler");
 
       if (!eventHandlerRegistered) {
