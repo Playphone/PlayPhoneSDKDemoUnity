@@ -48,14 +48,13 @@ namespace PlayPhone.MultiNet
 
     public static void Init(int gameId, string gameSecret) {
       MNTools.DLog("MNDirect:Init");
+      MNUnityCommunicator.Init();
 
       if (Application.platform == RuntimePlatform.IPhonePlayer) {
-        MNUnityCommunicator.Init();
-
         _MNDirect_Init(gameId, gameSecret);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        MNTools.ELog("PlayPhone SDK can be used on iOS or Android devices only.");
       }
     }
 
@@ -67,7 +66,6 @@ namespace PlayPhone.MultiNet
         _MNDirect_ShutdownSession();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -78,7 +76,7 @@ namespace PlayPhone.MultiNet
         return _MNDirect_IsOnline();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -89,7 +87,7 @@ namespace PlayPhone.MultiNet
         return _MNDirect_IsUserLoggedIn();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -100,7 +98,7 @@ namespace PlayPhone.MultiNet
         return _MNDirect_GetSessionStatus();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(int);
       }
     }
 
@@ -111,7 +109,6 @@ namespace PlayPhone.MultiNet
         _MNDirect_PostGameScore(score);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -122,7 +119,6 @@ namespace PlayPhone.MultiNet
         _MNDirect_PostGameScorePending(score);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -133,7 +129,6 @@ namespace PlayPhone.MultiNet
         _MNDirect_CancelGame();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -144,7 +139,6 @@ namespace PlayPhone.MultiNet
         _MNDirect_SetDefaultGameSetId(gameSetId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -155,7 +149,7 @@ namespace PlayPhone.MultiNet
         return _MNDirect_GetDefaultGameSetId();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(int);
       }
     }
 
@@ -166,7 +160,6 @@ namespace PlayPhone.MultiNet
         _MNDirect_SendAppBeacon(actionName, beaconData);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -177,7 +170,6 @@ namespace PlayPhone.MultiNet
         _MNDirect_ExecAppCommand(name, param);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -188,7 +180,6 @@ namespace PlayPhone.MultiNet
         _MNDirect_SendGameMessage(message);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -196,14 +187,13 @@ namespace PlayPhone.MultiNet
 
     public static void Init(int gameId, string gameSecret) {
       MNTools.DLog("MNDirect:Init");
+      MNUnityCommunicator.Init();
 
       if (Application.platform == RuntimePlatform.Android) {
-        MNUnityCommunicator.Init();
-
         MNDirectUnityClass.CallStatic("init",gameId, gameSecret);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        MNTools.ELog("PlayPhone SDK can be used on iOS or Android devices only.");
       }
     }
 
@@ -214,7 +204,6 @@ namespace PlayPhone.MultiNet
         MNDirectUnityClass.CallStatic("shutdownSession");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -225,7 +214,7 @@ namespace PlayPhone.MultiNet
         return MNDirectUnityClass.CallStatic<bool>("isOnline");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -236,7 +225,7 @@ namespace PlayPhone.MultiNet
         return MNDirectUnityClass.CallStatic<bool>("isUserLoggedIn");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -247,7 +236,7 @@ namespace PlayPhone.MultiNet
         return MNDirectUnityClass.CallStatic<int>("getSessionStatus");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(int);
       }
     }
 
@@ -258,7 +247,6 @@ namespace PlayPhone.MultiNet
         MNDirectUnityClass.CallStatic("postGameScore",score);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -269,7 +257,6 @@ namespace PlayPhone.MultiNet
         MNDirectUnityClass.CallStatic("postGameScorePending",score);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -280,7 +267,6 @@ namespace PlayPhone.MultiNet
         MNDirectUnityClass.CallStatic("cancelGame");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -291,7 +277,6 @@ namespace PlayPhone.MultiNet
         MNDirectUnityClass.CallStatic("setDefaultGameSetId",gameSetId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -302,7 +287,7 @@ namespace PlayPhone.MultiNet
         return MNDirectUnityClass.CallStatic<int>("getDefaultGameSetId");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(int);
       }
     }
 
@@ -313,7 +298,6 @@ namespace PlayPhone.MultiNet
         MNDirectUnityClass.CallStatic("sendAppBeacon",actionName, beaconData);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -324,7 +308,6 @@ namespace PlayPhone.MultiNet
         MNDirectUnityClass.CallStatic("execAppCommand",name, param);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -335,8 +318,57 @@ namespace PlayPhone.MultiNet
         MNDirectUnityClass.CallStatic("sendGameMessage",message);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
+    }
+
+    #else
+    // Empty implementation for unsupported platforms (such as Unity Editor)
+    // Method's arguments are ignored.
+    // Non-void methods return default values. If return value is an array empty array is returned.
+
+    public static void Init(int gameId, string gameSecret) {
+      MNUnityCommunicator.Init();
+      MNTools.ELog("PlayPhone SDK can be used on iOS or Android devices only.");
+    }
+
+    public static void ShutdownSession() {
+    }
+
+    public static bool IsOnline() {
+      return default(bool);
+    }
+
+    public static bool IsUserLoggedIn() {
+      return default(bool);
+    }
+
+    public static int GetSessionStatus() {
+      return default(int);
+    }
+
+    public static void PostGameScore(long score) {
+    }
+
+    public static void PostGameScorePending(long score) {
+    }
+
+    public static void CancelGame() {
+    }
+
+    public static void SetDefaultGameSetId(int gameSetId) {
+    }
+
+    public static int GetDefaultGameSetId() {
+      return default(int);
+    }
+
+    public static void SendAppBeacon(string actionName, string beaconData) {
+    }
+
+    public static void ExecAppCommand(string name, string param) {
+    }
+
+    public static void SendGameMessage(string message) {
     }
 
     #endif

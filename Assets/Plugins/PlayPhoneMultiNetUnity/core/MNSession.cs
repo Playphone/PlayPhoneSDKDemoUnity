@@ -330,7 +330,7 @@ namespace PlayPhone.MultiNet.Core
         return _MNSession_LoginAuto();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -341,7 +341,6 @@ namespace PlayPhone.MultiNet.Core
         _MNSession_Logout();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -352,7 +351,7 @@ namespace PlayPhone.MultiNet.Core
         return _MNSession_GetStatus();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(int);
       }
     }
 
@@ -363,7 +362,7 @@ namespace PlayPhone.MultiNet.Core
         return _MNSession_GetMyUserName();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(string);
       }
     }
 
@@ -374,7 +373,7 @@ namespace PlayPhone.MultiNet.Core
         return (MNUserInfo)MNUnityCommunicator.Serializer.Deserialize(_MNSession_GetMyUserInfo(),typeof(MNUserInfo));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(MNUserInfo);
       }
     }
 
@@ -395,7 +394,7 @@ namespace PlayPhone.MultiNet.Core
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNUserInfo[0];
       }
     }
 
@@ -406,7 +405,7 @@ namespace PlayPhone.MultiNet.Core
         return _MNSession_GetRoomUserStatus();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(int);
       }
     }
 
@@ -417,7 +416,7 @@ namespace PlayPhone.MultiNet.Core
         return _MNSession_GetCurrentRoomId();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(int);
       }
     }
 
@@ -428,7 +427,7 @@ namespace PlayPhone.MultiNet.Core
         return _MNSession_GetRoomGameSetId();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(int);
       }
     }
 
@@ -439,7 +438,6 @@ namespace PlayPhone.MultiNet.Core
         _MNSession_ReqJoinBuddyRoom(roomSFId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -450,7 +448,6 @@ namespace PlayPhone.MultiNet.Core
         _MNSession_SendJoinRoomInvitationResponse(MNUnityCommunicator.Serializer.Serialize(invitationParams), accept);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -461,7 +458,6 @@ namespace PlayPhone.MultiNet.Core
         _MNSession_ReqJoinRandomRoom(gameSetId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -472,7 +468,6 @@ namespace PlayPhone.MultiNet.Core
         _MNSession_ReqCreateBuddyRoom(MNUnityCommunicator.Serializer.Serialize(buddyRoomParams));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -483,7 +478,6 @@ namespace PlayPhone.MultiNet.Core
         _MNSession_ReqSetUserStatus(userStatus);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -494,7 +488,6 @@ namespace PlayPhone.MultiNet.Core
         _MNSession_LeaveRoom();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -505,7 +498,6 @@ namespace PlayPhone.MultiNet.Core
         _MNSession_ExecUICommand(name, param);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -516,7 +508,7 @@ namespace PlayPhone.MultiNet.Core
         return _MNSession_IsInGameRoom();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -532,7 +524,6 @@ namespace PlayPhone.MultiNet.Core
         eventHandlerRegistered = _MNSession_RegisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -553,7 +544,6 @@ namespace PlayPhone.MultiNet.Core
         eventHandlerRegistered = !_MNSession_UnregisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -566,7 +556,7 @@ namespace PlayPhone.MultiNet.Core
         return MNSessionUnityClass.CallStatic<bool>("loginAuto");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -577,7 +567,6 @@ namespace PlayPhone.MultiNet.Core
         MNSessionUnityClass.CallStatic("logout");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -588,7 +577,7 @@ namespace PlayPhone.MultiNet.Core
         return MNSessionUnityClass.CallStatic<int>("getStatus");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(int);
       }
     }
 
@@ -599,7 +588,7 @@ namespace PlayPhone.MultiNet.Core
         return MNSessionUnityClass.CallStatic<string>("getMyUserName");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(string);
       }
     }
 
@@ -610,7 +599,7 @@ namespace PlayPhone.MultiNet.Core
         return (MNUserInfo)MNUnityCommunicator.Serializer.Deserialize(MNSessionUnityClass.CallStatic<string>("getMyUserInfo"),typeof(MNUserInfo));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(MNUserInfo);
       }
     }
 
@@ -631,7 +620,7 @@ namespace PlayPhone.MultiNet.Core
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNUserInfo[0];
       }
     }
 
@@ -642,7 +631,7 @@ namespace PlayPhone.MultiNet.Core
         return MNSessionUnityClass.CallStatic<int>("getRoomUserStatus");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(int);
       }
     }
 
@@ -653,7 +642,7 @@ namespace PlayPhone.MultiNet.Core
         return MNSessionUnityClass.CallStatic<int>("getCurrentRoomId");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(int);
       }
     }
 
@@ -664,7 +653,7 @@ namespace PlayPhone.MultiNet.Core
         return MNSessionUnityClass.CallStatic<int>("getRoomGameSetId");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(int);
       }
     }
 
@@ -675,7 +664,6 @@ namespace PlayPhone.MultiNet.Core
         MNSessionUnityClass.CallStatic("reqJoinBuddyRoom",roomSFId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -686,7 +674,6 @@ namespace PlayPhone.MultiNet.Core
         MNSessionUnityClass.CallStatic("sendJoinRoomInvitationResponse",MNUnityCommunicator.Serializer.Serialize(invitationParams), accept);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -697,7 +684,6 @@ namespace PlayPhone.MultiNet.Core
         MNSessionUnityClass.CallStatic("reqJoinRandomRoom",gameSetId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -708,7 +694,6 @@ namespace PlayPhone.MultiNet.Core
         MNSessionUnityClass.CallStatic("reqCreateBuddyRoom",MNUnityCommunicator.Serializer.Serialize(buddyRoomParams));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -719,7 +704,6 @@ namespace PlayPhone.MultiNet.Core
         MNSessionUnityClass.CallStatic("reqSetUserStatus",userStatus);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -730,7 +714,6 @@ namespace PlayPhone.MultiNet.Core
         MNSessionUnityClass.CallStatic("leaveRoom");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -741,7 +724,6 @@ namespace PlayPhone.MultiNet.Core
         MNSessionUnityClass.CallStatic("execUICommand",name, param);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -752,7 +734,7 @@ namespace PlayPhone.MultiNet.Core
         return MNSessionUnityClass.CallStatic<bool>("isInGameRoom");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -768,7 +750,6 @@ namespace PlayPhone.MultiNet.Core
         eventHandlerRegistered = MNSessionUnityClass.CallStatic<bool>("registerEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -789,8 +770,78 @@ namespace PlayPhone.MultiNet.Core
         eventHandlerRegistered = !MNSessionUnityClass.CallStatic<bool>("unregisterEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
+    }
+
+    #else
+    // Empty implementation for unsupported platforms (such as Unity Editor)
+    // Method's arguments are ignored.
+    // Non-void methods return default values. If return value is an array empty array is returned.
+
+    public bool LoginAuto() {
+      return default(bool);
+    }
+
+    public void Logout() {
+    }
+
+    public int GetStatus() {
+      return default(int);
+    }
+
+    public string GetMyUserName() {
+      return default(string);
+    }
+
+    public MNUserInfo GetMyUserInfo() {
+      return default(MNUserInfo);
+    }
+
+    public MNUserInfo[] GetRoomUserList() {
+      return new MNUserInfo[0];
+    }
+
+    public int GetRoomUserStatus() {
+      return default(int);
+    }
+
+    public int GetCurrentRoomId() {
+      return default(int);
+    }
+
+    public int GetRoomGameSetId() {
+      return default(int);
+    }
+
+    public void ReqJoinBuddyRoom(int roomSFId) {
+    }
+
+    public void SendJoinRoomInvitationResponse(MNJoinRoomInvitationParams invitationParams, bool accept) {
+    }
+
+    public void ReqJoinRandomRoom(string gameSetId) {
+    }
+
+    public void ReqCreateBuddyRoom(MNBuddyRoomParams buddyRoomParams) {
+    }
+
+    public void ReqSetUserStatus(int userStatus) {
+    }
+
+    public void LeaveRoom() {
+    }
+
+    public void ExecUICommand(string name, string param) {
+    }
+
+    public bool IsInGameRoom() {
+      return default(bool);
+    }
+
+    private void RegisterEventHandler() {
+    }
+
+    private void UnregisterEventHandler() {
     }
 
     #endif
@@ -1001,6 +1052,8 @@ namespace PlayPhone.MultiNet.Core
       MNTools.DLog("MNSession:MNSession()");
     }
 
+    #if UNITY_IPHONE || UNITY_ANDROID
     private bool eventHandlerRegistered = false;
+    #endif
   }
 }

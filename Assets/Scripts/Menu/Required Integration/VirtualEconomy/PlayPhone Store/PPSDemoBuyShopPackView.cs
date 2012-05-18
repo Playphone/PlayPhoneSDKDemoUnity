@@ -1,3 +1,5 @@
+#define USE_JS
+
 using UnityEngine;
 using System.Collections;
 
@@ -7,6 +9,33 @@ using PlayPhone.MultiNet.Core;
 
 public class PPSDemoBuyShopPackView : PPSDemoViewAbstract 
 {
+  #if USE_JS
+  public PPSDemoBuyShopPackView()
+  {
+    viewName = "Buy Shop Pack";
+    PPSDemoCommonInfo.GetJSGameObject().SendMessage("PPSDemoJsBuyShopPackConstruct");
+  }
+
+  public override void Draw()
+  {
+    PPSDemoCommonInfo.GetJSGameObject().SendMessage("PPSDemoJsBuyShopPackDraw");
+  }
+
+  public override void OnClose ()
+  {
+    PPSDemoCommonInfo.GetJSGameObject().SendMessage("PPSDemoJsBuyShopPackClose");
+  }
+
+  public override void UserLoggedIn()
+  {
+    PPSDemoCommonInfo.GetJSGameObject().SendMessage("PPSDemoJsBuyShopPackUserLoggedIn");
+  }
+
+  public override void UserLoggedOut()
+  {
+    PPSDemoCommonInfo.GetJSGameObject().SendMessage("PPSDemoJsBuyShopPackUserLoggedOut");
+  }
+  #else
   public PPSDemoBuyShopPackView()
   {
     viewName = "Buy Shop Pack";
@@ -124,4 +153,5 @@ public class PPSDemoBuyShopPackView : PPSDemoViewAbstract
   protected bool vShopInfoUpdated = false;
   protected MNVShopProvider.CheckoutVShopPackFailInfo vShopPackFailInfo = null;
   protected MNVShopProvider.VShopPackInfo[] vShopPackArray = null;
+  #endif
 }

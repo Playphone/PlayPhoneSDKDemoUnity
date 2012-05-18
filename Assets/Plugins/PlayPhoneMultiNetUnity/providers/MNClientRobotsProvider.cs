@@ -21,7 +21,6 @@ namespace PlayPhone.MultiNet.Providers
 
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -32,7 +31,7 @@ namespace PlayPhone.MultiNet.Providers
         return _MNClientRobotsProvider_IsRobot(MNUnityCommunicator.Serializer.Serialize(userInfo));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -43,7 +42,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNClientRobotsProvider_PostRobotScore(MNUnityCommunicator.Serializer.Serialize(userInfo), score);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -54,7 +52,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNClientRobotsProvider_SetRoomRobotLimit(robotCount);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -65,7 +62,7 @@ namespace PlayPhone.MultiNet.Providers
         return _MNClientRobotsProvider_GetRoomRobotLimit();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(int);
       }
     }
 
@@ -78,7 +75,6 @@ namespace PlayPhone.MultiNet.Providers
         MNClientRobotsProviderUnityClass.CallStatic("shutdown");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -89,7 +85,7 @@ namespace PlayPhone.MultiNet.Providers
         return MNClientRobotsProviderUnityClass.CallStatic<bool>("isRobot",MNUnityCommunicator.Serializer.Serialize(userInfo));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -100,7 +96,6 @@ namespace PlayPhone.MultiNet.Providers
         MNClientRobotsProviderUnityClass.CallStatic("postRobotScore",MNUnityCommunicator.Serializer.Serialize(userInfo), score);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -111,7 +106,6 @@ namespace PlayPhone.MultiNet.Providers
         MNClientRobotsProviderUnityClass.CallStatic("setRoomRobotLimit",robotCount);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -122,8 +116,30 @@ namespace PlayPhone.MultiNet.Providers
         return MNClientRobotsProviderUnityClass.CallStatic<int>("getRoomRobotLimit");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(int);
       }
+    }
+
+    #else
+    // Empty implementation for unsupported platforms (such as Unity Editor)
+    // Method's arguments are ignored.
+    // Non-void methods return default values. If return value is an array empty array is returned.
+
+    public void Shutdown() {
+    }
+
+    public bool IsRobot(MNUserInfo userInfo) {
+      return default(bool);
+    }
+
+    public void PostRobotScore(MNUserInfo userInfo, long score) {
+    }
+
+    public void SetRoomRobotLimit(int robotCount) {
+    }
+
+    public int GetRoomRobotLimit() {
+      return default(int);
     }
 
     #endif

@@ -29,6 +29,15 @@ namespace PlayPhone.MultiNet
     public const int MNDIRECTBUTTON_TOP         = 49;
     public const int MNDIRECTBUTTON_RIGHT       = 21;
     public const int MNDIRECTBUTTON_BOTTOM      = 81;
+    #else
+    public const int MNDIRECTBUTTON_TOPLEFT     = 1;
+    public const int MNDIRECTBUTTON_TOPRIGHT    = 2;
+    public const int MNDIRECTBUTTON_BOTTOMRIGHT = 3;
+    public const int MNDIRECTBUTTON_BOTTOMLEFT  = 4;
+    public const int MNDIRECTBUTTON_LEFT        = 5;
+    public const int MNDIRECTBUTTON_TOP         = 6;
+    public const int MNDIRECTBUTTON_RIGHT       = 7;
+    public const int MNDIRECTBUTTON_BOTTOM      = 8;
     #endif
 
     #if UNITY_IPHONE
@@ -40,7 +49,7 @@ namespace PlayPhone.MultiNet
         return _MNDirectButton_IsVisible();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -51,7 +60,7 @@ namespace PlayPhone.MultiNet
         return _MNDirectButton_IsHidden();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -62,7 +71,6 @@ namespace PlayPhone.MultiNet
         _MNDirectButton_InitWithLocation(location);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -73,7 +81,6 @@ namespace PlayPhone.MultiNet
         _MNDirectButton_Show();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -84,7 +91,6 @@ namespace PlayPhone.MultiNet
         _MNDirectButton_Hide();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -95,7 +101,6 @@ namespace PlayPhone.MultiNet
         _MNDirectButton_SetVShopEventAutoHandleEnabled(isEnabled);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -108,7 +113,7 @@ namespace PlayPhone.MultiNet
         return MNDirectButtonUnityClass.CallStatic<bool>("isVisible");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -119,7 +124,7 @@ namespace PlayPhone.MultiNet
         return MNDirectButtonUnityClass.CallStatic<bool>("isHidden");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -130,7 +135,6 @@ namespace PlayPhone.MultiNet
         MNDirectButtonUnityClass.CallStatic("initWithLocation",location);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -141,7 +145,6 @@ namespace PlayPhone.MultiNet
         MNDirectButtonUnityClass.CallStatic("show");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -152,7 +155,6 @@ namespace PlayPhone.MultiNet
         MNDirectButtonUnityClass.CallStatic("hide");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -163,8 +165,32 @@ namespace PlayPhone.MultiNet
         MNDirectButtonUnityClass.CallStatic("setVShopEventAutoHandleEnabled",isEnabled);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
+    }
+
+    #else
+    // Empty implementation for unsupported platforms (such as Unity Editor)
+    // Method's arguments are ignored.
+    // Non-void methods return default values. If return value is an array empty array is returned.
+
+    public static bool IsVisible() {
+      return default(bool);
+    }
+
+    public static bool IsHidden() {
+      return default(bool);
+    }
+
+    public static void InitWithLocation(int location) {
+    }
+
+    public static void Show() {
+    }
+
+    public static void Hide() {
+    }
+
+    public static void SetVShopEventAutoHandleEnabled(bool isEnabled) {
     }
 
     #endif

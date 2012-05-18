@@ -115,7 +115,7 @@ namespace PlayPhone.MultiNet.Providers
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNAchievementsProvider.GameAchievementInfo[0];
       }
     }
 
@@ -126,7 +126,7 @@ namespace PlayPhone.MultiNet.Providers
         return (MNAchievementsProvider.GameAchievementInfo)MNUnityCommunicator.Serializer.Deserialize(_MNAchievementsProvider_FindGameAchievementById(achievementId),typeof(MNAchievementsProvider.GameAchievementInfo));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(MNAchievementsProvider.GameAchievementInfo);
       }
     }
 
@@ -137,7 +137,7 @@ namespace PlayPhone.MultiNet.Providers
         return _MNAchievementsProvider_IsGameAchievementListNeedUpdate();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -148,7 +148,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNAchievementsProvider_DoGameAchievementListUpdate();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -159,7 +158,7 @@ namespace PlayPhone.MultiNet.Providers
         return _MNAchievementsProvider_IsPlayerAchievementUnlocked(achievementId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -170,7 +169,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNAchievementsProvider_UnlockPlayerAchievement(achievementId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -191,7 +189,7 @@ namespace PlayPhone.MultiNet.Providers
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNAchievementsProvider.PlayerAchievementInfo[0];
       }
     }
 
@@ -202,7 +200,7 @@ namespace PlayPhone.MultiNet.Providers
         return _MNAchievementsProvider_GetAchievementImageURL(achievementId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(string);
       }
     }
 
@@ -218,7 +216,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = _MNAchievementsProvider_RegisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -239,7 +236,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !_MNAchievementsProvider_UnregisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -262,7 +258,7 @@ namespace PlayPhone.MultiNet.Providers
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNAchievementsProvider.GameAchievementInfo[0];
       }
     }
 
@@ -273,7 +269,7 @@ namespace PlayPhone.MultiNet.Providers
         return (MNAchievementsProvider.GameAchievementInfo)MNUnityCommunicator.Serializer.Deserialize(MNAchievementsProviderUnityClass.CallStatic<string>("findGameAchievementById",achievementId),typeof(MNAchievementsProvider.GameAchievementInfo));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(MNAchievementsProvider.GameAchievementInfo);
       }
     }
 
@@ -284,7 +280,7 @@ namespace PlayPhone.MultiNet.Providers
         return MNAchievementsProviderUnityClass.CallStatic<bool>("isGameAchievementListNeedUpdate");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -295,7 +291,6 @@ namespace PlayPhone.MultiNet.Providers
         MNAchievementsProviderUnityClass.CallStatic("doGameAchievementListUpdate");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -306,7 +301,7 @@ namespace PlayPhone.MultiNet.Providers
         return MNAchievementsProviderUnityClass.CallStatic<bool>("isPlayerAchievementUnlocked",achievementId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -317,7 +312,6 @@ namespace PlayPhone.MultiNet.Providers
         MNAchievementsProviderUnityClass.CallStatic("unlockPlayerAchievement",achievementId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -338,7 +332,7 @@ namespace PlayPhone.MultiNet.Providers
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNAchievementsProvider.PlayerAchievementInfo[0];
       }
     }
 
@@ -349,7 +343,7 @@ namespace PlayPhone.MultiNet.Providers
         return MNAchievementsProviderUnityClass.CallStatic<string>("getAchievementImageURL",achievementId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(string);
       }
     }
 
@@ -365,7 +359,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = MNAchievementsProviderUnityClass.CallStatic<bool>("registerEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -386,8 +379,48 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !MNAchievementsProviderUnityClass.CallStatic<bool>("unregisterEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
+    }
+
+    #else
+    // Empty implementation for unsupported platforms (such as Unity Editor)
+    // Method's arguments are ignored.
+    // Non-void methods return default values. If return value is an array empty array is returned.
+
+    public MNAchievementsProvider.GameAchievementInfo[] GetGameAchievementsList() {
+      return new MNAchievementsProvider.GameAchievementInfo[0];
+    }
+
+    public MNAchievementsProvider.GameAchievementInfo FindGameAchievementById(int achievementId) {
+      return default(MNAchievementsProvider.GameAchievementInfo);
+    }
+
+    public bool IsGameAchievementListNeedUpdate() {
+      return default(bool);
+    }
+
+    public void DoGameAchievementListUpdate() {
+    }
+
+    public bool IsPlayerAchievementUnlocked(int achievementId) {
+      return default(bool);
+    }
+
+    public void UnlockPlayerAchievement(int achievementId) {
+    }
+
+    public MNAchievementsProvider.PlayerAchievementInfo[] GetPlayerAchievementsList() {
+      return new MNAchievementsProvider.PlayerAchievementInfo[0];
+    }
+
+    public string GetAchievementImageURL(int achievementId) {
+      return default(string);
+    }
+
+    private void RegisterEventHandler() {
+    }
+
+    private void UnregisterEventHandler() {
     }
 
     #endif
@@ -471,6 +504,8 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNAchievementsProvider:MNAchievementsProvider()");
     }
 
+    #if UNITY_IPHONE || UNITY_ANDROID
     private bool eventHandlerRegistered = false;
+    #endif
   }
 }

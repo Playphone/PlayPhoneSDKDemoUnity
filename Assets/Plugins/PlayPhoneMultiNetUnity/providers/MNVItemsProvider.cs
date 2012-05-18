@@ -169,7 +169,6 @@ namespace PlayPhone.MultiNet.Providers
 
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -190,7 +189,7 @@ namespace PlayPhone.MultiNet.Providers
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNVItemsProvider.GameVItemInfo[0];
       }
     }
 
@@ -201,7 +200,7 @@ namespace PlayPhone.MultiNet.Providers
         return (MNVItemsProvider.GameVItemInfo)MNUnityCommunicator.Serializer.Deserialize(_MNVItemsProvider_FindGameVItemById(vItemId),typeof(MNVItemsProvider.GameVItemInfo));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(MNVItemsProvider.GameVItemInfo);
       }
     }
 
@@ -212,7 +211,7 @@ namespace PlayPhone.MultiNet.Providers
         return _MNVItemsProvider_IsGameVItemsListNeedUpdate();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -223,7 +222,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNVItemsProvider_DoGameVItemsListUpdate();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -234,7 +232,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNVItemsProvider_ReqAddPlayerVItem(vItemId, count, clientTransactionId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -245,7 +242,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNVItemsProvider_ReqAddPlayerVItemTransaction(MNUnityCommunicator.Serializer.Serialize(transactionVItems), clientTransactionId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -256,7 +252,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNVItemsProvider_ReqTransferPlayerVItem(vItemId, count, toPlayerId, clientTransactionId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -267,7 +262,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNVItemsProvider_ReqTransferPlayerVItemTransaction(MNUnityCommunicator.Serializer.Serialize(transactionVItems), toPlayerId, clientTransactionId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -288,7 +282,7 @@ namespace PlayPhone.MultiNet.Providers
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNVItemsProvider.PlayerVItemInfo[0];
       }
     }
 
@@ -299,7 +293,7 @@ namespace PlayPhone.MultiNet.Providers
         return _MNVItemsProvider_GetPlayerVItemCountById(vItemId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(long);
       }
     }
 
@@ -310,7 +304,7 @@ namespace PlayPhone.MultiNet.Providers
         return _MNVItemsProvider_GetVItemImageURL(vItemId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(string);
       }
     }
 
@@ -321,7 +315,7 @@ namespace PlayPhone.MultiNet.Providers
         return _MNVItemsProvider_GetNewClientTransactionId();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(long);
       }
     }
 
@@ -337,7 +331,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = _MNVItemsProvider_RegisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -358,7 +351,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !_MNVItemsProvider_UnregisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -371,7 +363,6 @@ namespace PlayPhone.MultiNet.Providers
         MNVItemsProviderUnityClass.CallStatic("shutdown");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -392,7 +383,7 @@ namespace PlayPhone.MultiNet.Providers
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNVItemsProvider.GameVItemInfo[0];
       }
     }
 
@@ -403,7 +394,7 @@ namespace PlayPhone.MultiNet.Providers
         return (MNVItemsProvider.GameVItemInfo)MNUnityCommunicator.Serializer.Deserialize(MNVItemsProviderUnityClass.CallStatic<string>("findGameVItemById",vItemId),typeof(MNVItemsProvider.GameVItemInfo));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(MNVItemsProvider.GameVItemInfo);
       }
     }
 
@@ -414,7 +405,7 @@ namespace PlayPhone.MultiNet.Providers
         return MNVItemsProviderUnityClass.CallStatic<bool>("isGameVItemsListNeedUpdate");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -425,7 +416,6 @@ namespace PlayPhone.MultiNet.Providers
         MNVItemsProviderUnityClass.CallStatic("doGameVItemsListUpdate");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -436,7 +426,6 @@ namespace PlayPhone.MultiNet.Providers
         MNVItemsProviderUnityClass.CallStatic("reqAddPlayerVItem",vItemId, count, clientTransactionId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -447,7 +436,6 @@ namespace PlayPhone.MultiNet.Providers
         MNVItemsProviderUnityClass.CallStatic("reqAddPlayerVItemTransaction",MNUnityCommunicator.Serializer.Serialize(transactionVItems), clientTransactionId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -458,7 +446,6 @@ namespace PlayPhone.MultiNet.Providers
         MNVItemsProviderUnityClass.CallStatic("reqTransferPlayerVItem",vItemId, count, toPlayerId, clientTransactionId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -469,7 +456,6 @@ namespace PlayPhone.MultiNet.Providers
         MNVItemsProviderUnityClass.CallStatic("reqTransferPlayerVItemTransaction",MNUnityCommunicator.Serializer.Serialize(transactionVItems), toPlayerId, clientTransactionId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -490,7 +476,7 @@ namespace PlayPhone.MultiNet.Providers
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNVItemsProvider.PlayerVItemInfo[0];
       }
     }
 
@@ -501,7 +487,7 @@ namespace PlayPhone.MultiNet.Providers
         return MNVItemsProviderUnityClass.CallStatic<long>("getPlayerVItemCountById",vItemId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(long);
       }
     }
 
@@ -512,7 +498,7 @@ namespace PlayPhone.MultiNet.Providers
         return MNVItemsProviderUnityClass.CallStatic<string>("getVItemImageURL",vItemId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(string);
       }
     }
 
@@ -523,7 +509,7 @@ namespace PlayPhone.MultiNet.Providers
         return MNVItemsProviderUnityClass.CallStatic<long>("getNewClientTransactionId");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(long);
       }
     }
 
@@ -539,7 +525,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = MNVItemsProviderUnityClass.CallStatic<bool>("registerEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -560,8 +545,64 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !MNVItemsProviderUnityClass.CallStatic<bool>("unregisterEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
+    }
+
+    #else
+    // Empty implementation for unsupported platforms (such as Unity Editor)
+    // Method's arguments are ignored.
+    // Non-void methods return default values. If return value is an array empty array is returned.
+
+    public void Shutdown() {
+    }
+
+    public MNVItemsProvider.GameVItemInfo[] GetGameVItemsList() {
+      return new MNVItemsProvider.GameVItemInfo[0];
+    }
+
+    public MNVItemsProvider.GameVItemInfo FindGameVItemById(int vItemId) {
+      return default(MNVItemsProvider.GameVItemInfo);
+    }
+
+    public bool IsGameVItemsListNeedUpdate() {
+      return default(bool);
+    }
+
+    public void DoGameVItemsListUpdate() {
+    }
+
+    public void ReqAddPlayerVItem(int vItemId, long count, long clientTransactionId) {
+    }
+
+    public void ReqAddPlayerVItemTransaction(MNVItemsProvider.TransactionVItemInfo[] transactionVItems, long clientTransactionId) {
+    }
+
+    public void ReqTransferPlayerVItem(int vItemId, long count, long toPlayerId, long clientTransactionId) {
+    }
+
+    public void ReqTransferPlayerVItemTransaction(MNVItemsProvider.TransactionVItemInfo[] transactionVItems, long toPlayerId, long clientTransactionId) {
+    }
+
+    public MNVItemsProvider.PlayerVItemInfo[] GetPlayerVItemList() {
+      return new MNVItemsProvider.PlayerVItemInfo[0];
+    }
+
+    public long GetPlayerVItemCountById(int vItemId) {
+      return default(long);
+    }
+
+    public string GetVItemImageURL(int vItemId) {
+      return default(string);
+    }
+
+    public long GetNewClientTransactionId() {
+      return default(long);
+    }
+
+    private void RegisterEventHandler() {
+    }
+
+    private void UnregisterEventHandler() {
     }
 
     #endif
@@ -675,6 +716,8 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNVItemsProvider:MNVItemsProvider()");
     }
 
+    #if UNITY_IPHONE || UNITY_ANDROID
     private bool eventHandlerRegistered = false;
+    #endif
   }
 }

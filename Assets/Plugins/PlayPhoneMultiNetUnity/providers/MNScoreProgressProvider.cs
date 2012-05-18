@@ -77,7 +77,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNScoreProgressProvider_SetRefreshIntervalAndUpdateDelay(refreshInterval, updateDelay);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -88,7 +87,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNScoreProgressProvider_Start();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -99,7 +97,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNScoreProgressProvider_Stop();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -110,7 +107,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNScoreProgressProvider_SetScoreComparator(comparator.getNativeCmparatorId());
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -121,7 +117,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNScoreProgressProvider_PostScore(score);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -137,7 +132,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = _MNScoreProgressProvider_RegisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -158,7 +152,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !_MNScoreProgressProvider_UnregisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -171,7 +164,6 @@ namespace PlayPhone.MultiNet.Providers
         MNScoreProgressProviderUnityClass.CallStatic("setRefreshIntervalAndUpdateDelay",refreshInterval, updateDelay);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -182,7 +174,6 @@ namespace PlayPhone.MultiNet.Providers
         MNScoreProgressProviderUnityClass.CallStatic("start");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -193,7 +184,6 @@ namespace PlayPhone.MultiNet.Providers
         MNScoreProgressProviderUnityClass.CallStatic("stop");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -204,7 +194,6 @@ namespace PlayPhone.MultiNet.Providers
         MNScoreProgressProviderUnityClass.CallStatic("setScoreComparator",comparator.getNativeCmparatorId());
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -216,7 +205,6 @@ namespace PlayPhone.MultiNet.Providers
         MNScoreProgressProviderUnityClass.CallStatic("postScore",score);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -232,7 +220,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = MNScoreProgressProviderUnityClass.CallStatic<bool>("registerEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -253,8 +240,33 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !MNScoreProgressProviderUnityClass.CallStatic<bool>("unregisterEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
+    }
+
+    #else
+    // Empty implementation for unsupported platforms (such as Unity Editor)
+    // Method's arguments are ignored.
+    // Non-void methods return default values. If return value is an array empty array is returned.
+
+    public void SetRefreshIntervalAndUpdateDelay(int refreshInterval, int updateDelay) {
+    }
+
+    public void Start() {
+    }
+
+    public void Stop() {
+    }
+
+    public void SetScoreComparator(ScoreComparator comparator) {
+    }
+
+    public void PostScore(long score) {
+    }
+
+    private void RegisterEventHandler() {
+    }
+
+    private void UnregisterEventHandler() {
     }
 
     #endif
@@ -335,7 +347,9 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNScoreProgressProvider:MNScoreProgressProvider()");
     }
 
+    #if UNITY_IPHONE || UNITY_ANDROID
     private bool eventHandlerRegistered = false;
+    #endif
 
     protected const int ScoreComparatorMoreIsBetterId = 0;
     protected const int ScoreComparatorLessIsBetterId = 1;

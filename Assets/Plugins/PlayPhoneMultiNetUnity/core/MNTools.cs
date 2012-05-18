@@ -7,11 +7,11 @@ namespace PlayPhone.MultiNet.Core
 {
   public class MNTools
   {
-    public const string NullString = "null";
-
     public const int DEBUG_LEVEL_OFF = 0;
     public const int DEBUG_LEVEL_NORMAL = 1;
     public const int DEBUG_LEVEL_DETAILED = 2;
+
+    public const string NullString = "null";
 
     private static int CurrentDebugLevel = DEBUG_LEVEL_OFF;
 
@@ -106,7 +106,6 @@ namespace PlayPhone.MultiNet.Core
       
       return result;
     }
-
 
     private MNTools ()
     {

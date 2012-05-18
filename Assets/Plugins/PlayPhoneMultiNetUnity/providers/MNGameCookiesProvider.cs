@@ -145,7 +145,6 @@ namespace PlayPhone.MultiNet.Providers
 
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -156,7 +155,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNGameCookiesProvider_DownloadUserCookie(key);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -167,7 +165,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNGameCookiesProvider_UploadUserCookie(key, cookie);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -183,7 +180,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = _MNGameCookiesProvider_RegisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -204,7 +200,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !_MNGameCookiesProvider_UnregisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -217,7 +212,6 @@ namespace PlayPhone.MultiNet.Providers
         MNGameCookiesProviderUnityClass.CallStatic("shutdown");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -228,7 +222,6 @@ namespace PlayPhone.MultiNet.Providers
         MNGameCookiesProviderUnityClass.CallStatic("downloadUserCookie",key);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -239,7 +232,6 @@ namespace PlayPhone.MultiNet.Providers
         MNGameCookiesProviderUnityClass.CallStatic("uploadUserCookie",key, cookie);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -255,7 +247,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = MNGameCookiesProviderUnityClass.CallStatic<bool>("registerEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -276,8 +267,27 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !MNGameCookiesProviderUnityClass.CallStatic<bool>("unregisterEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
+    }
+
+    #else
+    // Empty implementation for unsupported platforms (such as Unity Editor)
+    // Method's arguments are ignored.
+    // Non-void methods return default values. If return value is an array empty array is returned.
+
+    public void Shutdown() {
+    }
+
+    public void DownloadUserCookie(int key) {
+    }
+
+    public void UploadUserCookie(int key, string cookie) {
+    }
+
+    private void RegisterEventHandler() {
+    }
+
+    private void UnregisterEventHandler() {
     }
 
     #endif
@@ -377,6 +387,8 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNGameCookiesProvider:MNGameCookiesProvider()");
     }
 
+    #if UNITY_IPHONE || UNITY_ANDROID
     private bool eventHandlerRegistered = false;
+    #endif
   }
 }

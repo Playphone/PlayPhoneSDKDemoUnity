@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class PPSDemoCommonInfo{
 
   public static int gameId              = 10900;
@@ -15,4 +17,19 @@ public class PPSDemoCommonInfo{
   public static string LoggedToManage             = "You should be logged in to manage this";
   public static string CurrenRoomMessage          = "Room Cookies saved data for current room only with an id form 0 to 99(each up to 1KB), this simple app only saves randomly to first five.";
   public static string CloudStorageMessage        = "Room Cookies saved data for current room only with an id form 0 to 99(each up to 1KB), this simple app only saves randomly to first five.";
+
+  public static GameObject GetJSGameObject() {
+    if (jsGameObject == null) {
+      Debug.Log("jsGameObject = null");
+      jsGameObject = new GameObject(jsGameObjectName);
+
+      jsGameObject.AddComponent("PPSDemoBuyShopPackViewJS");
+      jsGameObject.AddComponent("PPSDemoSocialGraphViewJS");
+    }
+
+    return jsGameObject;
+  }
+
+  private static GameObject jsGameObject = null;
+  private const string jsGameObjectName = "PPSDemoJSGameObject";
 }

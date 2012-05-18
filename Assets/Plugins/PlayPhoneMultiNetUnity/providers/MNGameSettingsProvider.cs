@@ -67,7 +67,6 @@ namespace PlayPhone.MultiNet.Providers
 
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -88,7 +87,7 @@ namespace PlayPhone.MultiNet.Providers
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNGameSettingsProvider.GameSettingInfo[0];
       }
     }
 
@@ -99,7 +98,7 @@ namespace PlayPhone.MultiNet.Providers
         return (MNGameSettingsProvider.GameSettingInfo)MNUnityCommunicator.Serializer.Deserialize(_MNGameSettingsProvider_FindGameSettingById(gameSetId),typeof(MNGameSettingsProvider.GameSettingInfo));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(MNGameSettingsProvider.GameSettingInfo);
       }
     }
 
@@ -110,7 +109,7 @@ namespace PlayPhone.MultiNet.Providers
         return _MNGameSettingsProvider_IsGameSettingListNeedUpdate();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -121,7 +120,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNGameSettingsProvider_DoGameSettingListUpdate();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -137,7 +135,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = _MNGameSettingsProvider_RegisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -158,7 +155,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !_MNGameSettingsProvider_UnregisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -171,7 +167,6 @@ namespace PlayPhone.MultiNet.Providers
         MNGameSettingsProviderUnityClass.CallStatic("shutdown");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -192,7 +187,7 @@ namespace PlayPhone.MultiNet.Providers
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNGameSettingsProvider.GameSettingInfo[0];
       }
     }
 
@@ -203,7 +198,7 @@ namespace PlayPhone.MultiNet.Providers
         return (MNGameSettingsProvider.GameSettingInfo)MNUnityCommunicator.Serializer.Deserialize(MNGameSettingsProviderUnityClass.CallStatic<string>("findGameSettingById",gameSetId),typeof(MNGameSettingsProvider.GameSettingInfo));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(MNGameSettingsProvider.GameSettingInfo);
       }
     }
 
@@ -214,7 +209,7 @@ namespace PlayPhone.MultiNet.Providers
         return MNGameSettingsProviderUnityClass.CallStatic<bool>("isGameSettingListNeedUpdate");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -225,7 +220,6 @@ namespace PlayPhone.MultiNet.Providers
         MNGameSettingsProviderUnityClass.CallStatic("doGameSettingListUpdate");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -241,7 +235,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = MNGameSettingsProviderUnityClass.CallStatic<bool>("registerEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -262,8 +255,36 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !MNGameSettingsProviderUnityClass.CallStatic<bool>("unregisterEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
+    }
+
+    #else
+    // Empty implementation for unsupported platforms (such as Unity Editor)
+    // Method's arguments are ignored.
+    // Non-void methods return default values. If return value is an array empty array is returned.
+
+    public void Shutdown() {
+    }
+
+    public MNGameSettingsProvider.GameSettingInfo[] GetGameSettingList() {
+      return new MNGameSettingsProvider.GameSettingInfo[0];
+    }
+
+    public MNGameSettingsProvider.GameSettingInfo FindGameSettingById(int gameSetId) {
+      return default(MNGameSettingsProvider.GameSettingInfo);
+    }
+
+    public bool IsGameSettingListNeedUpdate() {
+      return default(bool);
+    }
+
+    public void DoGameSettingListUpdate() {
+    }
+
+    private void RegisterEventHandler() {
+    }
+
+    private void UnregisterEventHandler() {
     }
 
     #endif
@@ -329,6 +350,8 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNGameSettingsProvider:MNGameSettingsProvider()");
     }
 
+    #if UNITY_IPHONE || UNITY_ANDROID
     private bool eventHandlerRegistered = false;
+    #endif
   }
 }

@@ -115,7 +115,6 @@ namespace PlayPhone.MultiNet.Providers
 
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -126,7 +125,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNGameRoomCookiesProvider_DownloadGameRoomCookie(roomSFId, key);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -137,7 +135,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNGameRoomCookiesProvider_SetCurrentGameRoomCookie(key, cookie);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -148,7 +145,7 @@ namespace PlayPhone.MultiNet.Providers
         return _MNGameRoomCookiesProvider_GetCurrentGameRoomCookie(key);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(string);
       }
     }
 
@@ -164,7 +161,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = _MNGameRoomCookiesProvider_RegisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -185,7 +181,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !_MNGameRoomCookiesProvider_UnregisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -198,7 +193,6 @@ namespace PlayPhone.MultiNet.Providers
         MNGameRoomCookiesProviderUnityClass.CallStatic("shutdown");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -209,7 +203,6 @@ namespace PlayPhone.MultiNet.Providers
         MNGameRoomCookiesProviderUnityClass.CallStatic("downloadGameRoomCookie",roomSFId, key);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -220,7 +213,6 @@ namespace PlayPhone.MultiNet.Providers
         MNGameRoomCookiesProviderUnityClass.CallStatic("setCurrentGameRoomCookie",key, cookie);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -231,7 +223,7 @@ namespace PlayPhone.MultiNet.Providers
         return MNGameRoomCookiesProviderUnityClass.CallStatic<string>("getCurrentGameRoomCookie",key);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(string);
       }
     }
 
@@ -247,7 +239,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = MNGameRoomCookiesProviderUnityClass.CallStatic<bool>("registerEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -268,8 +259,31 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !MNGameRoomCookiesProviderUnityClass.CallStatic<bool>("unregisterEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
+    }
+
+    #else
+    // Empty implementation for unsupported platforms (such as Unity Editor)
+    // Method's arguments are ignored.
+    // Non-void methods return default values. If return value is an array empty array is returned.
+
+    public void Shutdown() {
+    }
+
+    public void DownloadGameRoomCookie(int roomSFId, int key) {
+    }
+
+    public void SetCurrentGameRoomCookie(int key, string cookie) {
+    }
+
+    public string GetCurrentGameRoomCookie(int key) {
+      return default(string);
+    }
+
+    private void RegisterEventHandler() {
+    }
+
+    private void UnregisterEventHandler() {
     }
 
     #endif
@@ -360,6 +374,8 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNGameRoomCookiesProvider:MNGameRoomCookiesProvider()");
     }
 
+    #if UNITY_IPHONE || UNITY_ANDROID
     private bool eventHandlerRegistered = false;
+    #endif
   }
 }

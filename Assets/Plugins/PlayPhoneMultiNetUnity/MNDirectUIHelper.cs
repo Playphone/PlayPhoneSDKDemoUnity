@@ -88,7 +88,6 @@ namespace PlayPhone.MultiNet
         _MNDirectUIHelper_SetDashboardStyle(newStyle);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -99,7 +98,6 @@ namespace PlayPhone.MultiNet
         _MNDirectUIHelper_ShowDashboard();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -110,7 +108,6 @@ namespace PlayPhone.MultiNet
         _MNDirectUIHelper_HideDashboard();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -121,7 +118,7 @@ namespace PlayPhone.MultiNet
         return _MNDirectUIHelper_IsDashboardHidden();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -132,7 +129,7 @@ namespace PlayPhone.MultiNet
         return _MNDirectUIHelper_IsDashboardVisible();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -156,7 +153,6 @@ namespace PlayPhone.MultiNet
         eventHandlerRegistered = _MNDirectUIHelper_RegisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -177,7 +173,6 @@ namespace PlayPhone.MultiNet
         eventHandlerRegistered = !_MNDirectUIHelper_UnregisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -190,7 +185,6 @@ namespace PlayPhone.MultiNet
         MNDirectUIHelperUnityClass.CallStatic("setDashboardStyle",newStyle);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -201,7 +195,6 @@ namespace PlayPhone.MultiNet
         MNDirectUIHelperUnityClass.CallStatic("showDashboard");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -212,7 +205,6 @@ namespace PlayPhone.MultiNet
         MNDirectUIHelperUnityClass.CallStatic("hideDashboard");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -223,7 +215,7 @@ namespace PlayPhone.MultiNet
         return MNDirectUIHelperUnityClass.CallStatic<bool>("isDashboardHidden");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -234,7 +226,7 @@ namespace PlayPhone.MultiNet
         return MNDirectUIHelperUnityClass.CallStatic<bool>("isDashboardVisible");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -245,7 +237,6 @@ namespace PlayPhone.MultiNet
         MNDirectUIHelperUnityClass.CallStatic("setHostActivity",true);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -256,7 +247,6 @@ namespace PlayPhone.MultiNet
         MNDirectUIHelperUnityClass.CallStatic("setHostActivity",false);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -272,7 +262,6 @@ namespace PlayPhone.MultiNet
         eventHandlerRegistered = MNDirectUIHelperUnityClass.CallStatic<bool>("registerEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -293,8 +282,41 @@ namespace PlayPhone.MultiNet
         eventHandlerRegistered = !MNDirectUIHelperUnityClass.CallStatic<bool>("unregisterEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
+    }
+
+    #else
+    // Empty implementation for unsupported platforms (such as Unity Editor)
+    // Method's arguments are ignored.
+    // Non-void methods return default values. If return value is an array empty array is returned.
+
+    public static void SetDashboardStyle(int newStyle) {
+    }
+
+    public static void ShowDashboard() {
+    }
+
+    public static void HideDashboard() {
+    }
+
+    public static bool IsDashboardHidden() {
+      return default(bool);
+    }
+
+    public static bool IsDashboardVisible() {
+      return default(bool);
+    }
+
+    public static void BindHostActivity() {
+    }
+
+    public static void UnbindHostActivity() {
+    }
+
+    private static void RegisterEventHandler() {
+    }
+
+    private static void UnregisterEventHandler() {
     }
 
     #endif
@@ -366,6 +388,8 @@ namespace PlayPhone.MultiNet
       MNTools.DLog("MNDirectUIHelper:MNDirectUIHelper()");
     }
 
+    #if UNITY_IPHONE || UNITY_ANDROID
     private static bool eventHandlerRegistered = false;
+    #endif
   }
 }

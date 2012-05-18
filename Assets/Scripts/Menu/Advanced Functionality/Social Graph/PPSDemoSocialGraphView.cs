@@ -1,3 +1,5 @@
+#define USE_JS
+
 using UnityEngine;
 using System.Collections;
 
@@ -7,6 +9,29 @@ using PlayPhone.MultiNet.Core;
 
 public class PPSDemoSocialGraphView : PPSDemoViewAbstract 
 {
+  #if USE_JS
+  public PPSDemoSocialGraphView()
+  {
+    viewName = "Social Graph";
+
+    PPSDemoCommonInfo.GetJSGameObject().SendMessage("PPSDemoJsSocialGraphConstruct");
+  }
+
+  public override void Draw()
+  {
+    PPSDemoCommonInfo.GetJSGameObject().SendMessage("PPSDemoJsSocialGraphDraw");
+  }
+
+  public override void UserLoggedIn()
+  {
+    PPSDemoCommonInfo.GetJSGameObject().SendMessage("PPSDemoJsSocialGraphUserLoggedIn");
+  }
+  
+  public override void UserLoggedOut()
+  {
+    PPSDemoCommonInfo.GetJSGameObject().SendMessage("PPSDemoJsSocialGraphUserLoggedOut");
+  }
+  #else
   public PPSDemoSocialGraphView()
   {
     viewName = "Social Graph";
@@ -76,4 +101,5 @@ public class PPSDemoSocialGraphView : PPSDemoViewAbstract
   protected MNWSBuddyListItem[] currUserBuddyListArray = null;
   protected MNWSBuddyListItem currUserBuddyList = null;
   protected bool socialGraphUpdated = false;
+  #endif
 }

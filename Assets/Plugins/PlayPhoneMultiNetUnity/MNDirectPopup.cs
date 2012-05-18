@@ -12,17 +12,23 @@ namespace PlayPhone.MultiNet
   public class MNDirectPopup : MonoBehaviour
   {
     #if UNITY_IPHONE
-    public const int MNDIRECTPOPUP_WELCOME = 1;
-    public const int MNDIRECTPOPUP_ACHIEVEMENTS = 2;
+    public const int MNDIRECTPOPUP_WELCOME       = 1;
+    public const int MNDIRECTPOPUP_ACHIEVEMENTS  = 2;
     public const int MNDIRECTPOPUP_NEW_HI_SCORES = 4;
-    public const int MNDIRECTPOPUP_WEB_EVENT = 65536;
-    public const int MNDIRECTPOPUP_ALL = 65543;
+    public const int MNDIRECTPOPUP_WEB_EVENT     = 65536;
+    public const int MNDIRECTPOPUP_ALL           = 65543;
     #elif UNITY_ANDROID
-    public const int MNDIRECTPOPUP_WELCOME = 1;
-    public const int MNDIRECTPOPUP_ACHIEVEMENTS = 2;
+    public const int MNDIRECTPOPUP_WELCOME       = 1;
+    public const int MNDIRECTPOPUP_ACHIEVEMENTS  = 2;
     public const int MNDIRECTPOPUP_NEW_HI_SCORES = 4;
-    public const int MNDIRECTPOPUP_WEB_EVENT = 8;
-    public const int MNDIRECTPOPUP_ALL = 15;
+    public const int MNDIRECTPOPUP_WEB_EVENT     = 8;
+    public const int MNDIRECTPOPUP_ALL           = 15;
+    #else
+    public const int MNDIRECTPOPUP_WELCOME       = 1;
+    public const int MNDIRECTPOPUP_ACHIEVEMENTS  = 2;
+    public const int MNDIRECTPOPUP_NEW_HI_SCORES = 4;
+    public const int MNDIRECTPOPUP_WEB_EVENT     = 65536;
+    public const int MNDIRECTPOPUP_ALL           = 65543;
     #endif
 
     #if UNITY_IPHONE
@@ -34,7 +40,6 @@ namespace PlayPhone.MultiNet
         _MNDirectPopup_Init(actionsBitMask);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -45,7 +50,7 @@ namespace PlayPhone.MultiNet
         return _MNDirectPopup_IsActive();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -56,7 +61,6 @@ namespace PlayPhone.MultiNet
         _MNDirectPopup_SetActive(activeFlag);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -69,7 +73,6 @@ namespace PlayPhone.MultiNet
         MNDirectPopupUnityClass.CallStatic("init",actionsBitMask);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -80,7 +83,7 @@ namespace PlayPhone.MultiNet
         return MNDirectPopupUnityClass.CallStatic<bool>("isActive");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -91,8 +94,22 @@ namespace PlayPhone.MultiNet
         MNDirectPopupUnityClass.CallStatic("setActive",activeFlag);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
+    }
+
+    #else
+    // Empty implementation for unsupported platforms (such as Unity Editor)
+    // Method's arguments are ignored.
+    // Non-void methods return default values. If return value is an array empty array is returned.
+
+    public static void Init(int actionsBitMask) {
+    }
+
+    public static bool IsActive() {
+      return default(bool);
+    }
+
+    public static void SetActive(bool activeFlag) {
     }
 
     #endif

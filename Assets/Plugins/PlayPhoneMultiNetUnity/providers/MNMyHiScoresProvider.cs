@@ -59,7 +59,6 @@ namespace PlayPhone.MultiNet.Providers
 
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -70,7 +69,7 @@ namespace PlayPhone.MultiNet.Providers
         return (long?)MNUnityCommunicator.Serializer.Deserialize(_MNMyHiScoresProvider_GetMyHiScore(gameSetId),typeof(long?));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(long?);
       }
     }
 
@@ -83,7 +82,7 @@ namespace PlayPhone.MultiNet.Providers
         return MNUnityCommunicator.Serializer.DeserializeDictionary(_MNMyHiScoresProvider_GetMyHiScores());
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new Hashtable();
       }
     }
 
@@ -99,7 +98,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = _MNMyHiScoresProvider_RegisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -120,7 +118,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !_MNMyHiScoresProvider_UnregisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -133,7 +130,6 @@ namespace PlayPhone.MultiNet.Providers
         MNMyHiScoresProviderUnityClass.CallStatic("shutdown");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -144,7 +140,7 @@ namespace PlayPhone.MultiNet.Providers
         return (long?)MNUnityCommunicator.Serializer.Deserialize(MNMyHiScoresProviderUnityClass.CallStatic<string>("getMyHiScore",gameSetId),typeof(long?));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(long?);
       }
     }
 
@@ -157,7 +153,7 @@ namespace PlayPhone.MultiNet.Providers
         return MNUnityCommunicator.Serializer.DeserializeDictionary(MNMyHiScoresProviderUnityClass.CallStatic<string>("getMyHiScores"));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new Hashtable();
       }
     }
 
@@ -173,7 +169,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = MNMyHiScoresProviderUnityClass.CallStatic<bool>("registerEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -194,8 +189,29 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !MNMyHiScoresProviderUnityClass.CallStatic<bool>("unregisterEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
+    }
+
+    #else
+    // Empty implementation for unsupported platforms (such as Unity Editor)
+    // Method's arguments are ignored.
+    // Non-void methods return default values. If return value is an array empty array is returned.
+
+    public void Shutdown() {
+    }
+
+    public long? GetMyHiScore(int gameSetId) {
+      return default(long?);
+    }
+
+    public IDictionary GetMyHiScores() {
+      return new Hashtable();
+    }
+
+    private void RegisterEventHandler() {
+    }
+
+    private void UnregisterEventHandler() {
     }
 
     #endif
@@ -259,6 +275,8 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNMyHiScoresProvider:MNMyHiScoresProvider()");
     }
 
+    #if UNITY_IPHONE || UNITY_ANDROID
     private bool eventHandlerRegistered = false;
+    #endif
   }
 }

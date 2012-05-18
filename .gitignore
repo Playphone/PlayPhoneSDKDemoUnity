@@ -3,5 +3,6 @@ Temp
 Library
 *.sln
 *.csproj
+*.unityproj
 *.pidb
 *.userprefs

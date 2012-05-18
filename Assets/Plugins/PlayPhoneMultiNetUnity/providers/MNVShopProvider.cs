@@ -274,7 +274,6 @@ namespace PlayPhone.MultiNet.Providers
 
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -295,7 +294,7 @@ namespace PlayPhone.MultiNet.Providers
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNVShopProvider.VShopPackInfo[0];
       }
     }
 
@@ -316,7 +315,7 @@ namespace PlayPhone.MultiNet.Providers
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNVShopProvider.VShopCategoryInfo[0];
       }
     }
 
@@ -327,7 +326,7 @@ namespace PlayPhone.MultiNet.Providers
         return (MNVShopProvider.VShopPackInfo)MNUnityCommunicator.Serializer.Deserialize(_MNVShopProvider_FindVShopPackById(packId),typeof(MNVShopProvider.VShopPackInfo));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(MNVShopProvider.VShopPackInfo);
       }
     }
 
@@ -338,7 +337,7 @@ namespace PlayPhone.MultiNet.Providers
         return (MNVShopProvider.VShopCategoryInfo)MNUnityCommunicator.Serializer.Deserialize(_MNVShopProvider_FindVShopCategoryById(categoryId),typeof(MNVShopProvider.VShopCategoryInfo));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(MNVShopProvider.VShopCategoryInfo);
       }
     }
 
@@ -349,7 +348,7 @@ namespace PlayPhone.MultiNet.Providers
         return _MNVShopProvider_IsVShopInfoNeedUpdate();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -360,7 +359,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNVShopProvider_DoVShopInfoUpdate();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -371,7 +369,7 @@ namespace PlayPhone.MultiNet.Providers
         return _MNVShopProvider_GetVShopPackImageURL(packId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(string);
       }
     }
 
@@ -382,7 +380,7 @@ namespace PlayPhone.MultiNet.Providers
         return _MNVShopProvider_IsVShopReady();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -393,7 +391,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNVShopProvider_ExecCheckoutVShopPacks(MNUnityCommunicator.Serializer.Serialize(packIdArray), MNUnityCommunicator.Serializer.Serialize(packCountArray), clientTransactionId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -404,7 +401,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNVShopProvider_ProcCheckoutVShopPacksSilent(MNUnityCommunicator.Serializer.Serialize(packIdArray), MNUnityCommunicator.Serializer.Serialize(packCountArray), clientTransactionId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -420,7 +416,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = _MNVShopProvider_RegisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -441,7 +436,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !_MNVShopProvider_UnregisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -454,7 +448,6 @@ namespace PlayPhone.MultiNet.Providers
         MNVShopProviderUnityClass.CallStatic("shutdown");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -475,7 +468,7 @@ namespace PlayPhone.MultiNet.Providers
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNVShopProvider.VShopPackInfo[0];
       }
     }
 
@@ -496,7 +489,7 @@ namespace PlayPhone.MultiNet.Providers
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNVShopProvider.VShopCategoryInfo[0];
       }
     }
 
@@ -507,7 +500,7 @@ namespace PlayPhone.MultiNet.Providers
         return (MNVShopProvider.VShopPackInfo)MNUnityCommunicator.Serializer.Deserialize(MNVShopProviderUnityClass.CallStatic<string>("findVShopPackById",packId),typeof(MNVShopProvider.VShopPackInfo));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(MNVShopProvider.VShopPackInfo);
       }
     }
 
@@ -518,7 +511,7 @@ namespace PlayPhone.MultiNet.Providers
         return (MNVShopProvider.VShopCategoryInfo)MNUnityCommunicator.Serializer.Deserialize(MNVShopProviderUnityClass.CallStatic<string>("findVShopCategoryById",categoryId),typeof(MNVShopProvider.VShopCategoryInfo));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(MNVShopProvider.VShopCategoryInfo);
       }
     }
 
@@ -529,7 +522,7 @@ namespace PlayPhone.MultiNet.Providers
         return MNVShopProviderUnityClass.CallStatic<bool>("isVShopInfoNeedUpdate");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -540,7 +533,6 @@ namespace PlayPhone.MultiNet.Providers
         MNVShopProviderUnityClass.CallStatic("doVShopInfoUpdate");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -551,7 +543,7 @@ namespace PlayPhone.MultiNet.Providers
         return MNVShopProviderUnityClass.CallStatic<string>("getVShopPackImageURL",packId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(string);
       }
     }
 
@@ -562,7 +554,7 @@ namespace PlayPhone.MultiNet.Providers
         return MNVShopProviderUnityClass.CallStatic<bool>("isVShopReady");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(bool);
       }
     }
 
@@ -573,7 +565,6 @@ namespace PlayPhone.MultiNet.Providers
         MNVShopProviderUnityClass.CallStatic("execCheckoutVShopPacks",MNUnityCommunicator.Serializer.Serialize(packIdArray), MNUnityCommunicator.Serializer.Serialize(packCountArray), clientTransactionId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -584,7 +575,6 @@ namespace PlayPhone.MultiNet.Providers
         MNVShopProviderUnityClass.CallStatic("procCheckoutVShopPacksSilent",MNUnityCommunicator.Serializer.Serialize(packIdArray), MNUnityCommunicator.Serializer.Serialize(packCountArray), clientTransactionId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -600,7 +590,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = MNVShopProviderUnityClass.CallStatic<bool>("registerEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -621,8 +610,58 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !MNVShopProviderUnityClass.CallStatic<bool>("unregisterEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
+    }
+
+    #else
+    // Empty implementation for unsupported platforms (such as Unity Editor)
+    // Method's arguments are ignored.
+    // Non-void methods return default values. If return value is an array empty array is returned.
+
+    public void Shutdown() {
+    }
+
+    public MNVShopProvider.VShopPackInfo[] GetVShopPackList() {
+      return new MNVShopProvider.VShopPackInfo[0];
+    }
+
+    public MNVShopProvider.VShopCategoryInfo[] GetVShopCategoryList() {
+      return new MNVShopProvider.VShopCategoryInfo[0];
+    }
+
+    public MNVShopProvider.VShopPackInfo FindVShopPackById(int packId) {
+      return default(MNVShopProvider.VShopPackInfo);
+    }
+
+    public MNVShopProvider.VShopCategoryInfo FindVShopCategoryById(int categoryId) {
+      return default(MNVShopProvider.VShopCategoryInfo);
+    }
+
+    public bool IsVShopInfoNeedUpdate() {
+      return default(bool);
+    }
+
+    public void DoVShopInfoUpdate() {
+    }
+
+    public string GetVShopPackImageURL(int packId) {
+      return default(string);
+    }
+
+    public bool IsVShopReady() {
+      return default(bool);
+    }
+
+    public void ExecCheckoutVShopPacks(int[] packIdArray, int[] packCountArray, long clientTransactionId) {
+    }
+
+    public void ProcCheckoutVShopPacksSilent(int[] packIdArray, int[] packCountArray, long clientTransactionId) {
+    }
+
+    private void RegisterEventHandler() {
+    }
+
+    private void UnregisterEventHandler() {
     }
 
     #endif
@@ -758,6 +797,8 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNVShopProvider:MNVShopProvider()");
     }
 
+    #if UNITY_IPHONE || UNITY_ANDROID
     private bool eventHandlerRegistered = false;
+    #endif
   }
 }

@@ -85,7 +85,6 @@ namespace PlayPhone.MultiNet.Providers
 
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -106,7 +105,7 @@ namespace PlayPhone.MultiNet.Providers
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNUserInfo[0];
       }
     }
 
@@ -122,7 +121,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = _MNPlayerListProvider_RegisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -143,7 +141,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !_MNPlayerListProvider_UnregisterEventHandler();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -156,7 +153,6 @@ namespace PlayPhone.MultiNet.Providers
         MNPlayerListProviderUnityClass.CallStatic("shutdown");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -177,7 +173,7 @@ namespace PlayPhone.MultiNet.Providers
         return resultArray;
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return new MNUserInfo[0];
       }
     }
 
@@ -193,7 +189,6 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = MNPlayerListProviderUnityClass.CallStatic<bool>("registerEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -214,8 +209,25 @@ namespace PlayPhone.MultiNet.Providers
         eventHandlerRegistered = !MNPlayerListProviderUnityClass.CallStatic<bool>("unregisterEventHandler");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
+    }
+
+    #else
+    // Empty implementation for unsupported platforms (such as Unity Editor)
+    // Method's arguments are ignored.
+    // Non-void methods return default values. If return value is an array empty array is returned.
+
+    public void Shutdown() {
+    }
+
+    public MNUserInfo[] GetPlayerList() {
+      return new MNUserInfo[0];
+    }
+
+    private void RegisterEventHandler() {
+    }
+
+    private void UnregisterEventHandler() {
     }
 
     #endif
@@ -288,6 +300,8 @@ namespace PlayPhone.MultiNet.Providers
       MNTools.DLog("MNPlayerListProvider:MNPlayerListProvider()");
     }
 
+    #if UNITY_IPHONE || UNITY_ANDROID
     private bool eventHandlerRegistered = false;
+    #endif
   }
 }

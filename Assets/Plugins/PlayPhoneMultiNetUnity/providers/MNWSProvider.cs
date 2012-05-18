@@ -28,7 +28,6 @@ namespace PlayPhone.MultiNet.Providers
         //_MNWSProvider_Shutdown();
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -45,7 +44,7 @@ namespace PlayPhone.MultiNet.Providers
         return new MNWSLoader(_MNWSProvider_Send(MNUnityCommunicator.Serializer.Serialize(requests)));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(MNWSLoader);
       }
     }
 
@@ -54,7 +53,6 @@ namespace PlayPhone.MultiNet.Providers
         _MNWSProvider_CancelRequest(loaderId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -67,7 +65,6 @@ namespace PlayPhone.MultiNet.Providers
         MNWSProviderUnityClass.CallStatic("shutdown");
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
     }
 
@@ -84,7 +81,7 @@ namespace PlayPhone.MultiNet.Providers
         return new MNWSLoader(MNWSProviderUnityClass.CallStatic<long>("send",MNUnityCommunicator.Serializer.Serialize(requests)));
       }
       else {
-        throw new MNNotOnDeviceExcepton();
+        return default(MNWSLoader);
       }
     }
 
@@ -93,8 +90,22 @@ namespace PlayPhone.MultiNet.Providers
         MNWSProviderUnityClass.CallStatic("cancelRequest",loaderId);
       }
       else {
-        throw new MNNotOnDeviceExcepton();
       }
+    }
+
+    #else
+    // Empty implementation for unsupported platforms (such as Unity Editor)
+    // Method's arguments are ignored.
+    // Non-void methods return default values. If return value is an array empty array is returned.
+
+    public void Shutdown() {
+    }
+
+    public MNWSLoader Send(MNWSInfoRequest[] requests) {
+      return default(MNWSLoader);
+    }
+
+    internal void CancelRequest(long loaderId) {
     }
 
     #endif
